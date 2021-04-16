@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+	<Nullable>enable</Nullable>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Tesseract" Version="4.1.1" />
+	<PackageReference Include="Docnet.Core" Version="2.2.0" />
+	<PackageReference Include="ReactiveUI.Fody" Version="13.1.1" />
+	<PackageReference Include="ReactiveUI.Validation" Version="2.1.1" />
+	<PackageReference Include="Avalonia" Version="0.10.0" />
+	<PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
+	<PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
+	<PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Files\eng.traineddata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\fra.traineddata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\pdf.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\pol.traineddata">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
