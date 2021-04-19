@@ -53,6 +53,11 @@ In order to build and run the project you need to:
 Alternatively you can also open the `.sln` file in Visual Studio 2019 and build `InDepthSearch.UI` project. Voilà!
 
 ## ⚖️ License
-The code in this repository is licensed under the **Apache-2.0 License**
+The code in this repository is licensed under the **Apache License 2.0**
 
-**NOTE:** [tesseract-ocr/tesseract](https://github.com/tesseract-ocr/tesseract/blob/master/LICENSE "tesseract-ocr/tesseract") (project dependency) is licensed under the Apache License 2.0.
+**NOTE:** The project would not exist without following resources:
+
+ - [Avalonia](https://github.com/AvaloniaUI/Avalonia), [ReactiveUI](https://github.com/reactiveui/ReactiveUI), [DocNET](https://github.com/GowenGit/docnet) licensed under MIT.
+ - [tesseract](https://github.com/charlesw/tesseract) licensed under the Apache License 2.0.
+
+
