@@ -202,6 +202,10 @@
 				<TextBlock Text="Execution time: " Foreground="White" FontSize="12" Margin="10 0 0 0" />
 				<TextBlock Text="{Binding Stats.ExecutionTime}" Foreground="White" FontSize="12"/>
 			</StackPanel>
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+				<TextBlock Text="v" Foreground="White" FontSize="12" />
+				<TextBlock Text="{Binding AppVersion}" Foreground="White" FontSize="12" Margin="0 0 10 0"/>
+			</StackPanel>
 		</Grid>
 	</Grid>
 	</Border>

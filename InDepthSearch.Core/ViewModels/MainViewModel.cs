@@ -48,6 +48,8 @@ namespace InDepthSearch.Core.ViewModels
         public bool KeywordErrorVisible { get; set; }
         [Reactive]
         public bool PathErrorVisible { get; set; }
+        [Reactive]
+        public string AppVersion { get; set; }
 
         private Thread? _th;
         private readonly IDocLib _docLib;
@@ -71,10 +73,12 @@ namespace InDepthSearch.Core.ViewModels
             ErrorsChanged += OnValidationErrorsChanged;
             this.ValidationRule(x => x.Options.Keyword, key => !string.IsNullOrEmpty(key), "Keyword cannot be empty!");
             this.ValidationRule(x => x.Options.Path, key => !string.IsNullOrEmpty(key) && Directory.Exists(key), "Path has to be valid!");
+
+            AppVersion = "x.x.x";
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         #endregion
-        public MainViewModel(IOptionService optionService, IDirectoryService directoryService)
+        public MainViewModel(IOptionService optionService, IDirectoryService directoryService, IAppInfo infoService)
         {
             // Initialize services
             _docLib = DocLib.Instance;
@@ -102,6 +106,10 @@ namespace InDepthSearch.Core.ViewModels
             ErrorsChanged += OnValidationErrorsChanged;
             this.ValidationRule(x => x.Options.Keyword, key => !string.IsNullOrEmpty(key), "Keyword cannot be empty!");
             this.ValidationRule(x => x.Options.Path, key => !string.IsNullOrEmpty(key) && Directory.Exists(key), "Path has to be valid!");
+
+            // Get assembly version
+            AppVersion = infoService.GetVersion();
+
         }
 
         private void OnValidationErrorsChanged(object? sender, System.ComponentModel.DataErrorsChangedEventArgs e)

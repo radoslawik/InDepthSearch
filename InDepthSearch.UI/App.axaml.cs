@@ -20,7 +20,7 @@ namespace InDepthSearch.UI
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainViewModel(new OptionService(), new DirectoryService()),
+                    DataContext = new MainViewModel(new OptionService(), new DirectoryService(), new AppInfo()),
                 };
             }
 
