@@ -4,20 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:conv="clr-namespace:InDepthSearch.UI.Converters"
-        mc:Ignorable="d" Width="1000" Height="600" MinWidth="1000" MinHeight="600"
+        mc:Ignorable="d" Width="1220" Height="780" MinWidth="1000" MinHeight="600"
         x:Class="InDepthSearch.UI.Views.MainWindow"
 		x:Name="Main"
         Icon="/Assets/ids-icon.ico"
-		Title="InDepthSearch"
-		FontFamily="Roboto">
-	<FluentWindow.Background>
-		<LinearGradientBrush >
-			<GradientStop Color="{DynamicResource CyanWhiteTransperentColor}" Offset="0" />
-			<GradientStop Color="{DynamicResource BlueWhiteTransperentColor}" Offset="0.5" />
-			<GradientStop Color="{DynamicResource VioletWhiteTransperentColor}" Offset="1" />
-		</LinearGradientBrush>
-	</FluentWindow.Background>
-
+		Title="InDepthSearch">
+		
 	<Design.DataContext>
 		<vm:MainViewModel/>
 	</Design.DataContext>
@@ -25,10 +17,6 @@
 	<Window.Resources>
 		<conv:BitmapAssetValueConverter x:Key="imConverter"/>
 	</Window.Resources>
-
-	<Window.Styles>
-		<StyleInclude Source="/Styles/ButtonIDS.xaml"/>
-	</Window.Styles>
 
 	<Border BorderBrush="Black" BorderThickness="0.5">
 	<Grid Margin="0 20 0 0">
@@ -41,94 +29,98 @@
 			<ColumnDefinition Width="2*"/>
 			<ColumnDefinition Width="5*"/>
 		</Grid.ColumnDefinitions>
-		
-		<Grid Grid.Column="0" Margin="10 0" MaxWidth="400" MaxHeight="700">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="12*"/>
-				<RowDefinition Height="4*"/>
-				<RowDefinition Height="4*"/>
-				<RowDefinition Height="3.5*"/>
-				<RowDefinition Height="2*"/>
-				<RowDefinition Height="2*"/>
-				<RowDefinition Height="2*"/>
-				<RowDefinition Height="4*"/>
-				<RowDefinition Height="2.5*"/>
-			</Grid.RowDefinitions>
 
-			<Image Grid.Row="0" Source="{Binding Logo, Converter={StaticResource imConverter}}" />
-			
-			<Grid Grid.Row="1">
-				<TextBlock Text="Keyword" FontSize="12" Foreground="Gray"/>
-				<DrawingPresenter MaxWidth="18" MaxHeight="18" IsVisible="{Binding KeywordErrorVisible}" ZIndex="99"
-								  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Keyword cannot be empty!">
-					<DrawingPresenter.Drawing>
-						<GeometryDrawing Brush="Gray" Geometry="{StaticResource InvalidCheckIcon}" />
-					</DrawingPresenter.Drawing>
-				</DrawingPresenter>
-				<TextBox Text="{Binding Options.Keyword}" Watermark="Word or phrase to find"
-						 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="Wrap" />
-			</Grid>
-			<Grid Grid.Row="2">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="5*"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
-
-					<Grid Grid.Column="0" >
-						<TextBlock Text="Path" FontSize="12" Foreground="Gray"/>
-						<DrawingPresenter MaxWidth="18" MaxHeight="18"  IsVisible="{Binding PathErrorVisible}" ZIndex="99"
-										  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Path does not exist!">
+		<Border Grid.Column="0" Grid.Row="0" Margin="10" MaxWidth="400" MaxHeight="750" CornerRadius="5" BorderBrush="Black" BorderThickness="0" 
+				BoxShadow="{DynamicResource BoxShadowSuper}" Padding="5">
+			<Border.Background>
+				<LinearGradientBrush >
+					<GradientStop Color="{DynamicResource CyanWhiteTransperentColor}" Offset="0" />
+					<GradientStop Color="{DynamicResource BlueWhiteTransperentColor}" Offset="0.5" />
+					<GradientStop Color="{DynamicResource VioletWhiteTransperentColor}" Offset="1" />
+				</LinearGradientBrush>
+			</Border.Background>
+			<Grid Margin="5 0 5 5" MaxWidth="350">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="5*"/>
+					<RowDefinition Height="1.3*"/>
+					<RowDefinition Height="1.3*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="2.8*"/>
+					<RowDefinition Height="1.5*"/>
+					<RowDefinition Height="1.2*"/>
+				</Grid.RowDefinitions>
+				<Image Grid.Row="0" Source="{Binding Logo, Converter={StaticResource imConverter}}" />
+				<Grid Grid.Row="1" VerticalAlignment="Center">
+						<DrawingPresenter MaxWidth="18" MaxHeight="18" IsVisible="{Binding KeywordErrorVisible}" ZIndex="99"
+										  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Keyword cannot be empty!">
 							<DrawingPresenter.Drawing>
-								<GeometryDrawing Brush="Gray" Geometry="{StaticResource InvalidCheckIcon}"/>
+								<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}" />
 							</DrawingPresenter.Drawing>
 						</DrawingPresenter>
-						<TextBox Text="{Binding Options.Path}" Watermark="Folder to search"
-								 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="WrapWithOverflow"/>
-					</Grid>
-					<Grid Grid.Column="1">						
-						<Button Margin="2 0" Background="Transparent" HorizontalAlignment="Center" Command="{Binding GetDirectory}">
-							<DrawingPresenter MaxWidth="30" MaxHeight="30">
+						<TextBox Text="{Binding Options.Keyword}" Watermark="Word or phrase to find"
+								 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="Wrap" />
+					</Grid>		
+				<Grid Grid.Row="2" VerticalAlignment="Center">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="5*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<Grid Grid.Column="0" Margin="0 0 10 0">							
+							<DrawingPresenter MaxWidth="18" MaxHeight="18"  IsVisible="{Binding PathErrorVisible}" ZIndex="99"
+											  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Path does not exist!">
 								<DrawingPresenter.Drawing>
-									<GeometryDrawing Brush="Gray" Geometry="{StaticResource DirectoryIcon}"/>
+									<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}"/>
 								</DrawingPresenter.Drawing>
 							</DrawingPresenter>
-						</Button>
+							<TextBox Text="{Binding Options.Path}" Watermark="Folder to search"
+									 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="WrapWithOverflow"/>
+						</Grid>
+						<Grid Name="DirectoryButton" Grid.Column="1">
+							<Button Command="{Binding GetDirectory}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+									VerticalAlignment="Center" Width="{Binding #DirectoryButton.Bounds.Width}">								
+								<DrawingPresenter Width="20" Height="20" Margin="0 4">
+									<DrawingPresenter.Drawing>
+										<GeometryDrawing Brush="White" Geometry="{StaticResource DirectoryIcon}"/>
+									</DrawingPresenter.Drawing>
+								</DrawingPresenter>
+							</Button>
+						</Grid>						
 					</Grid>
+				<StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center">
+					<TextBlock Text="Formats" FontSize="12" ToolTip.Tip="{Binding FormatsTT}"/>
+					<UniformGrid Columns="3">
+						<CheckBox Grid.Column="0" Content="pdf" IsChecked="{Binding Options.UsePDF}"/>
+						<CheckBox Grid.Column="1" Content="docx" IsChecked="{Binding Options.UseDOCX}" IsEnabled="False"/>
+						<CheckBox Grid.Column="2" Content="odt" IsChecked="{Binding Options.UseODT}" IsEnabled="False"/>
+					</UniformGrid>
+				</StackPanel>
+				
+				<StackPanel Grid.Row="4" Orientation="Vertical" VerticalAlignment="Center">
+					<ToggleSwitch ToolTip.Tip="{Binding CaseSensitiveTT}" OnContent="Case-sensitive" OffContent="Case-sensitive"
+								  IsChecked="{Binding Options.CaseSensitive}" />
+					<ToggleSwitch ToolTip.Tip="{Binding SubfolderTT}" OnContent="Search in subfolders" OffContent="Search in subfolders"
+								  IsChecked="{Binding Options.UseSubfolders}" />
+					<ToggleSwitch ToolTip.Tip="{Binding OcrTT}" OnContent="Use image OCR" OffContent="Use image OCR"
+								  IsChecked="{Binding Options.UseOCR}" />
+				</StackPanel>				
+				<UniformGrid Grid.Row="5" Columns="2" VerticalAlignment="Center">
+						<StackPanel Name="LanguageGrid" Grid.Column="0" Margin="2 0" ToolTip.Tip="{Binding LanguageTT}">
+							<TextBlock Text="Language" FontSize="12"/>
+							<ComboBox Items="{Binding LanguageOCR}" SelectedItem="{Binding Options.SelectedLanguageOCR}"
+									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #LanguageGrid.Bounds.Width}"/>
+						</StackPanel>
+						<StackPanel Grid.Column="1" Name="PrecisionGrid" Margin="2 0" ToolTip.Tip="{Binding PrecisionTT}">
+							<TextBlock Text="Precision" FontSize="12"/>
+							<ComboBox Items="{Binding PrecisionOCR}" SelectedItem="{Binding Options.SelectedPrecisionOCR}"
+									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #PrecisionGrid.Bounds.Width}"/>
+						</StackPanel>
+					</UniformGrid>
+				<Button Grid.Row="6" Command="{Binding ReadPDF}" IsEnabled="{Binding Stats.IsReady}" VerticalAlignment="Center" Content="Search" Width="100"/>
+			</Grid>		
+		</Border>
 
-				</Grid>
-			</Grid>
-			<Grid Grid.Row="3">
-				<TextBlock Text="Formats" FontSize="12" Foreground="Gray" ToolTip.Tip="{Binding FormatsTT}"/>
-				<UniformGrid Columns="3">
-					<CheckBox Grid.Column="0" Content="pdf" IsChecked="{Binding Options.UsePDF}"/>
-					<CheckBox Grid.Column="1" Content="docx" IsChecked="{Binding Options.UseDOCX}" IsEnabled="False"/>
-					<CheckBox Grid.Column="2" Content="odt" IsChecked="{Binding Options.UseODT}" IsEnabled="False"/>
-				</UniformGrid>
-			</Grid>
-			<ToggleSwitch ToolTip.Tip="{Binding CaseSensitiveTT}" Grid.Row="4" OnContent="Case-sensitive" OffContent="Case-sensitive"
-						  IsChecked="{Binding Options.CaseSensitive}" VerticalAlignment="Top" />
-			<ToggleSwitch ToolTip.Tip="{Binding SubfolderTT}" Grid.Row="5" OnContent="Search in subfolders" OffContent="Search in subfolders" 
-						  IsChecked="{Binding Options.UseSubfolders}" VerticalAlignment="Top" />
-			<ToggleSwitch ToolTip.Tip="{Binding OcrTT}" Grid.Row="6" OnContent="Use image OCR" OffContent="Use image OCR" 
-						  IsChecked="{Binding Options.UseOCR}" VerticalAlignment="Top" />
-			<UniformGrid Grid.Row="7" Columns="2">
-				<Grid Name="LanguageGrid" Grid.Column="0" Margin="2 0" ToolTip.Tip="{Binding LanguageTT}">
-					<TextBlock Text="Language" FontSize="12" Foreground="Gray"/>
-					<ComboBox Items="{Binding LanguageOCR}" SelectedItem="{Binding Options.SelectedLanguageOCR}"
-							  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #LanguageGrid.Bounds.Width}"/>
-				</Grid>
-				<Grid Grid.Column="1" Name="PrecisionGrid" Margin="2 0" ToolTip.Tip="{Binding PrecisionTT}">
-					<TextBlock Text="Precision" FontSize="12" Foreground="Gray"/>
-					<ComboBox Items="{Binding PrecisionOCR}" SelectedItem="{Binding Options.SelectedPrecisionOCR}"
-							  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #PrecisionGrid.Bounds.Width}"/>
-				</Grid>
-			</UniformGrid>		
-			<Button Classes="Main" Grid.Row="8" Command="{Binding ReadPDF}" IsEnabled="{Binding Stats.IsReady}" Content="Search" 
-					VerticalAlignment="Top" HorizontalAlignment="Center"/>
-		</Grid>
-
-		<Border Grid.Column="1" Margin="5 15 25 25" Background="#6FFFFFFF" CornerRadius="4" BorderBrush="Black" BorderThickness="0.5">
+		<Border Grid.Column="1" Grid.Row="0" Margin="5 15 25 25" CornerRadius="4" BorderBrush="Black" BorderThickness="0.5" >
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="30"/>
@@ -136,29 +128,31 @@
 				</Grid.RowDefinitions>
 
 			<Border Grid.Row="0" CornerRadius="4">
+				<!--
 				<Border.Background>
 					<LinearGradientBrush >
 						<GradientStop Color="{DynamicResource BlueProjectTransparentColor}" Offset="0" />
 						<GradientStop Color="{DynamicResource VioletProjectTransparentColor}" Offset="1" />
 					</LinearGradientBrush>
 				</Border.Background>
+				-->
 			<Grid VerticalAlignment="Center">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="2*"/>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="7*"/>
 				</Grid.ColumnDefinitions>
-					<Label Grid.Column="0" HorizontalAlignment="Center" Foreground="WhiteSmoke">FILE</Label>
-					<Label Grid.Column="1" HorizontalAlignment="Center" Foreground="WhiteSmoke">PAGE</Label>
-					<Label Grid.Column="2" HorizontalAlignment="Center" Foreground="WhiteSmoke">RESULTS FOUND</Label>
+					<Label Grid.Column="0" HorizontalAlignment="Center">FILE</Label>
+					<Label Grid.Column="1" HorizontalAlignment="Center">PAGE</Label>
+					<Label Grid.Column="2" HorizontalAlignment="Center">RESULTS FOUND</Label>
 			</Grid>
 		</Border>
 				<Grid Grid.Row="1">
-				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontSize="18"/>
-				<ListBox Background="Transparent" Name="ResultView" Items="{Binding Results}">
+				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+				<ListBox Name="ResultView" Items="{Binding Results}">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<Border CornerRadius="4" Background="Transparent">
+							<Border CornerRadius="4">
 								<Grid ToolTip.Tip="{Binding FilePath}" Width="{Binding #ResultView.Bounds.Width}">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="2*"/>
@@ -183,6 +177,7 @@
 		</Border>
 	</Grid>
 		<Grid Grid.Row="1" Margin="1 0 0 0">
+			<!--
 			<Grid.Background>
 				<LinearGradientBrush >
 					<GradientStop Color="{DynamicResource CyanProjectTransparentColor}" Offset="0" />
@@ -190,21 +185,22 @@
 					<GradientStop Color="{DynamicResource VioletProjectTransparentColor}" Offset="1" />				
 				</LinearGradientBrush>
 			</Grid.Background>
+			-->
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-				<TextBlock Text="Status: " Foreground="White" FontSize="12" FontWeight="DemiBold" Margin="10 0 0 0"/>
-				<TextBlock Text="{Binding Stats.Status}" Foreground="White" FontWeight="DemiBold" FontSize="12" />
-				<TextBlock Text="Files analyzed: " Foreground="White" FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Stats.FilesAnalyzed}" Foreground="White" FontSize="12"/>
-				<TextBlock Text="Pages analyzed: " Foreground="White" FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Stats.PagesAnalyzed}" Foreground="White" FontSize="12"/>
-				<TextBlock Text="Results found: " Foreground="White" FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Results.Count}" Foreground="White" FontSize="12"/>
-				<TextBlock Text="Execution time: " Foreground="White" FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Stats.ExecutionTime}" Foreground="White" FontSize="12"/>
+				<TextBlock Text="Status: " FontSize="12" FontWeight="DemiBold" Margin="10 0 0 0"/>
+				<TextBlock Text="{Binding Stats.Status}" FontWeight="DemiBold" FontSize="12" />
+				<TextBlock Text="Files analyzed: " FontSize="12" Margin="10 0 0 0" />
+				<TextBlock Text="{Binding Stats.FilesAnalyzed}" FontSize="12"/>
+				<TextBlock Text="Pages analyzed: " FontSize="12" Margin="10 0 0 0" />
+				<TextBlock Text="{Binding Stats.PagesAnalyzed}" FontSize="12"/>
+				<TextBlock Text="Results found: " FontSize="12" Margin="10 0 0 0" />
+				<TextBlock Text="{Binding Results.Count}" FontSize="12"/>
+				<TextBlock Text="Execution time: " FontSize="12" Margin="10 0 0 0" />
+				<TextBlock Text="{Binding Stats.ExecutionTime}" FontSize="12"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-				<TextBlock Text="v" Foreground="White" FontSize="12" />
-				<TextBlock Text="{Binding AppVersion}" Foreground="White" FontSize="12" Margin="0 0 10 0"/>
+				<TextBlock Text="v" FontSize="12" />
+				<TextBlock Text="{Binding AppVersion}" FontSize="12" Margin="0 0 10 0"/>
 			</StackPanel>
 		</Grid>
 	</Grid>

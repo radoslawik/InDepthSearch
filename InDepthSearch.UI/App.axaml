@@ -7,26 +7,11 @@
     </Application.DataTemplates>
 
 	<Application.Styles>
-		<FluentTheme Mode="Light"/>
+		<StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/Index.xaml"/>
+		<StyleInclude Source="avares://InDepthSearch.UI/Themes/Palettes/LightPalette.xaml"/>
 	</Application.Styles>
 	
 	<Application.Resources>
-		<SolidColorBrush x:Key="CyanProjectBrush">#00c4cc</SolidColorBrush>
-		<SolidColorBrush x:Key="BlueProjectBrush">#0528c5</SolidColorBrush>
-		<SolidColorBrush x:Key="VioletProjectBrush">#6200e2</SolidColorBrush>
-		
-		<Color x:Key="CyanProjectColor">#00c4cc</Color>
-		<Color x:Key="BlueProjectColor">#0528c5</Color>
-		<Color x:Key="VioletProjectColor">#6200e2</Color>
-		
-		<Color x:Key="CyanProjectTransparentColor">#A000c4cc</Color>
-		<Color x:Key="BlueProjectTransparentColor">#A00528c5</Color>
-		<Color x:Key="VioletProjectTransparentColor">#A06200e2</Color>
-		
-		<Color x:Key="VioletWhiteTransperentColor">#E0f7f0ff</Color>
-		<Color x:Key="BlueWhiteTransperentColor">#E0e6eafe</Color>
-		<Color x:Key="CyanWhiteTransperentColor">#E0ccfdff</Color>
-		
 		<PathGeometry x:Key="DirectoryIcon">
 			M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z
 		</PathGeometry>
