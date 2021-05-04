@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
 	<ApplicationIcon>Assets\ids-icon.ico</ApplicationIcon>
-	<Version>0.1.0</Version>
+	<Version>0.2.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
