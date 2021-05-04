@@ -119,53 +119,45 @@
 				<Button Grid.Row="6" Command="{Binding ReadPDF}" IsEnabled="{Binding Stats.IsReady}" VerticalAlignment="Center" Content="Search" Width="100"/>
 			</Grid>		
 		</Border>
-
-		<Border Grid.Column="1" Grid.Row="0" Margin="5 15 25 25" CornerRadius="4" BorderBrush="Black" BorderThickness="0.5" >
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="30"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-
-			<Border Grid.Row="0" CornerRadius="4">
-				<!--
-				<Border.Background>
-					<LinearGradientBrush >
-						<GradientStop Color="{DynamicResource BlueProjectTransparentColor}" Offset="0" />
-						<GradientStop Color="{DynamicResource VioletProjectTransparentColor}" Offset="1" />
-					</LinearGradientBrush>
-				</Border.Background>
-				-->
-			<Grid VerticalAlignment="Center">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="2*"/>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="7*"/>
-				</Grid.ColumnDefinitions>
-					<Label Grid.Column="0" HorizontalAlignment="Center">FILE</Label>
-					<Label Grid.Column="1" HorizontalAlignment="Center">PAGE</Label>
-					<Label Grid.Column="2" HorizontalAlignment="Center">RESULTS FOUND</Label>
-			</Grid>
-		</Border>
-				<Grid Grid.Row="1">
-				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
-				<ListBox Name="ResultView" Items="{Binding Results}">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<Border CornerRadius="4">
-								<Grid ToolTip.Tip="{Binding FilePath}" Width="{Binding #ResultView.Bounds.Width}">
+			<Grid Grid.Column="1" Grid.Row="0" Margin="15">
+				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Foreground="{DynamicResource ThemeControlMidBrush}" IsVisible="{Binding !Results.Count}"/>
+				<ListBox Name="ResultView" Items="{Binding Results}" IsVisible="{Binding Results.Count}">
+					<ListBox.Template>
+						<ControlTemplate>
+							<DockPanel LastChildFill="True">
+								<Grid DockPanel.Dock="Top" Height="30">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="2*"/>
 										<ColumnDefinition Width="*"/>
 										<ColumnDefinition Width="7*"/>
 									</Grid.ColumnDefinitions>
-								
-									<TextBlock Grid.Column="0" Text="{Binding FileName}" TextWrapping="WrapWithOverflow" MaxLines="1" Margin="10 0"/>
+									<Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">FILE</Label>
+									<Label Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">PAGE</Label>
+									<Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0">RESULT FOUND</Label>
+								</Grid>
+								<ScrollViewer>
+									<ItemsPresenter></ItemsPresenter>
+								</ScrollViewer>
+
+							</DockPanel>
+						</ControlTemplate>
+					</ListBox.Template>
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Border>
+								<Grid ToolTip.Tip="{Binding FilePath}">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="2*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="7*"/>
+									</Grid.ColumnDefinitions>
+									
+									<TextBlock Grid.Column="0" Text="{Binding FileName}" TextWrapping="WrapWithOverflow" MaxLines="1"/>
 									<TextBlock Grid.Column="1" Text="{Binding PageNumber}" HorizontalAlignment="Center" />
-									<DockPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center">
-										<TextBlock Text="{Binding TextBefore}" FontSize="12" />
-										<TextBlock Text="{Binding TextFound}" FontSize="12" FontWeight="Bold"/>
-										<TextBlock Text="{Binding TextAfter}" FontSize="12" TextWrapping="WrapWithOverflow" MaxLines="1" />
+									<DockPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0">
+										<TextBlock Text="{Binding TextBefore}" />
+										<TextBlock Text="{Binding TextFound}" FontWeight="Bold"/>
+										<TextBlock Text="{Binding TextAfter}" TextWrapping="WrapWithOverflow" MaxLines="1" />
 									</DockPanel>
 									</Grid>
 							</Border>
@@ -173,8 +165,7 @@
 					</ListBox.ItemTemplate>
 				</ListBox>
 				</Grid>
-			</Grid>
-		</Border>
+			
 	</Grid>
 		<Grid Grid.Row="1" Margin="1 0 0 0">
 			<!--

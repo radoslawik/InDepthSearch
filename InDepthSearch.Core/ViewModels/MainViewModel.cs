@@ -122,7 +122,6 @@ namespace InDepthSearch.Core.ViewModels
         {
             var searchOptions = Options;
 
-            ResultInfo = "";
             Results.Clear();
             Stats.IsReady = false;
             Stats.Status = "Initializing...";

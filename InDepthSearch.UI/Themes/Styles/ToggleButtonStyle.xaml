@@ -15,9 +15,6 @@
     <Style Selector="ToggleButton:pointerover">
         <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
     </Style>
-    <Style Selector="ToggleButton:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
-    </Style>
     <Style Selector="ToggleButton:checked /template/ ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
     </Style>
