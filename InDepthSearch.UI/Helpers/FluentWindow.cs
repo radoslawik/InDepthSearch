@@ -25,6 +25,8 @@ namespace Avalonia.Controls
                 {
                     PseudoClasses.Set(":maximized", x == WindowState.Maximized);
                     PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
+                    if (x == WindowState.Maximized) Padding = Thickness.Parse("8"); // https://github.com/AvaloniaUI/Avalonia/issues/5581
+                    else Padding = Thickness.Parse("0");
                 });
 
             this.GetObservable(IsExtendedIntoWindowDecorationsProperty)
