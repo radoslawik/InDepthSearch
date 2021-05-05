@@ -28,11 +28,11 @@
 		<Color x:Key="ThemeForegroundLowColor">#808080</Color>
 
 		<Color x:Key="HighlightBadgeColor">#9d69ee</Color>
-		<Color x:Key="HighlightColor">#6983df</Color>
+		<Color x:Key="HighlightColor">#d9e0f7</Color>
 		<Color x:Key="HighlightHoverColor">#5e75c8</Color>
-		<Color x:Key="HighlightForegroundColor">#FFFFFF</Color>
+		<Color x:Key="HighlightForegroundColor">#505050</Color>
 
-		<Color x:Key="ThemeMainBackgroundColor">#0528c5</Color>
+		<Color x:Key="ThemeMainBackgroundColor">#8ea2e7</Color>
 		<Color x:Key="ThemeIconForegroundColor">#A04465d8</Color>
 
         <SolidColorBrush x:Key="ThemeCardBrush" Color="{DynamicResource ThemeCardColor}"/>
@@ -81,13 +81,10 @@
 		<Color x:Key="BlueProjectColor">#4465d8</Color>
 		<Color x:Key="VioletProjectColor">#742ae7</Color>
 
-		<Color x:Key="CyanProjectTransparentColor">#A000c4cc</Color>
-		<Color x:Key="BlueProjectTransparentColor">#A00528c5</Color>
-		<Color x:Key="VioletProjectTransparentColor">#A06200e2</Color>
 
-		<Color x:Key="VioletWhiteTransperentColor">#F0f7f0ff</Color>
-		<Color x:Key="BlueWhiteTransperentColor">#F0e6eafe</Color>
-		<Color x:Key="CyanWhiteTransperentColor">#F0ccfdff</Color>
+		<Color x:Key="VioletThemeColor">#F0f7f0ff</Color>
+		<Color x:Key="BlueThemeColor">#F0e6eafe</Color>
+		<Color x:Key="CyanThemeColor">#F0ccfdff</Color>
 
 	</Style.Resources>
 </Style>

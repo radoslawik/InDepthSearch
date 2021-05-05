@@ -15,6 +15,6 @@
 		<Setter Property="CornerRadius" Value="5"/>
 	</Style>
 	<Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-		<Setter Property="Background" Value="{DynamicResource HighlightForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource ThemeMainBackgroundBrush}"/>
 	</Style>
 </Styles>

@@ -34,9 +34,9 @@
 				BoxShadow="{DynamicResource BoxShadowSuper}" Padding="5">
 			<Border.Background>
 				<LinearGradientBrush >
-					<GradientStop Color="{DynamicResource CyanWhiteTransperentColor}" Offset="0" />
-					<GradientStop Color="{DynamicResource BlueWhiteTransperentColor}" Offset="0.5" />
-					<GradientStop Color="{DynamicResource VioletWhiteTransperentColor}" Offset="1" />
+					<GradientStop Color="{DynamicResource CyanThemeColor}" Offset="0" />
+					<GradientStop Color="{DynamicResource BlueThemeColor}" Offset="0.5" />
+					<GradientStop Color="{DynamicResource VioletThemeColor}" Offset="1" />
 				</LinearGradientBrush>
 			</Border.Background>
 			<Grid Margin="5 0 5 5" MaxWidth="350">
@@ -81,7 +81,7 @@
 									VerticalAlignment="Center" Width="{Binding #DirectoryButton.Bounds.Width}">								
 								<DrawingPresenter Width="20" Height="20" Margin="0 4">
 									<DrawingPresenter.Drawing>
-										<GeometryDrawing Brush="White" Geometry="{StaticResource DirectoryIcon}"/>
+										<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource DirectoryIcon}"/>
 									</DrawingPresenter.Drawing>
 								</DrawingPresenter>
 							</Button>
@@ -120,7 +120,7 @@
 			</Grid>		
 		</Border>
 			<Grid Grid.Column="1" Grid.Row="0" Margin="15">
-				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Foreground="{DynamicResource ThemeControlMidBrush}" IsVisible="{Binding !Results.Count}"/>
+				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" IsVisible="{Binding !Results.Count}"/>
 				<ListBox Name="ResultView" Items="{Binding Results}" IsVisible="{Binding Results.Count}">
 					<ListBox.Template>
 						<ControlTemplate>
