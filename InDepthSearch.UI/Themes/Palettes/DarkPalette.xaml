@@ -9,7 +9,7 @@
 		<Color x:Key="ThemeAccentColor3">#00c4cc</Color> <!-- needed for default theme toggle switch -->
 		<Color x:Key="ThemeAccentBadgeColor">#4465d8</Color>
 
-		<Color x:Key="ThemeCardColor">#000000</Color>
+		<Color x:Key="ThemeCardColor">#191919</Color>
 		<Color x:Key="ThemeBackgroundColor">#1c1c1c</Color>
 		<Color x:Key="ThemeBorderLowColor">#424242</Color>
 		<Color x:Key="ThemeBorderMidColor">#666666</Color>
@@ -28,7 +28,7 @@
 		<Color x:Key="ThemeForegroundLowColor">#ededed</Color>
 
 		<Color x:Key="HighlightBadgeColor">#006266</Color>
-		<Color x:Key="HighlightColor">#424242</Color>
+		<Color x:Key="HighlightColor">#7d7d7d</Color>
 		<Color x:Key="HighlightHoverColor">#00c4cc</Color>
 		<Color x:Key="HighlightForegroundColor">#FFFFFF</Color>
 

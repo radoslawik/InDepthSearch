@@ -11,12 +11,15 @@
     </Style>
     <Style Selector="TextBox /template/ Border">
         <Setter Property="CornerRadius" Value="5" />
+		<Setter Property="Margin" Value="2" />
     </Style>
     <Style Selector="TextBox:pointerover /template/ Border">
         <Setter Property="Background" Value="{DynamicResource ThemeBorderMidBrush}" />
-    </Style>
+		<Setter Property="BoxShadow" Value="{DynamicResource BoxShadowSmall}"/>
+	</Style>
     <Style Selector="TextBox:focus /template/ Border">
         <Setter Property="Background" Value="{DynamicResource ThemeBorderMidBrush}" />
+		<Setter Property="BoxShadow" Value="{DynamicResource BoxShadowLarge}"/>
     </Style>  
     
     <Style Selector="TextBox.Badge">

@@ -11,11 +11,6 @@
 	<AvaloniaResource Include="Themes\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Themes\Palettes\DarkPalette.xaml" />
-    <None Remove="Themes\Styles\ListBoxStyle.xaml" />
-    <None Remove="Themes\Styles\ToggleButtonStyle.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.2" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.2" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.2" />
@@ -23,16 +18,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InDepthSearch.Core\InDepthSearch.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <AvaloniaResource Update="Themes\Palettes\DarkPalette.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Themes\Styles\ListBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
-    <AvaloniaResource Update="Themes\Styles\ToggleButtonStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaResource>
   </ItemGroup>
 </Project>

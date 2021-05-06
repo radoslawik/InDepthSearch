@@ -21,14 +21,14 @@
 		<Color x:Key="ThemeControlHighColor">#6983df</Color>
 		<Color x:Key="ThemeControlVeryHighColor">#5674db</Color>
 
-		<Color x:Key="ThemeControlHighlightLowColor">#d5bff7</Color>
-		<Color x:Key="ThemeControlHighlightMidColor">#c7a9f5</Color>
-		<Color x:Key="ThemeControlHighlightHighColor">#b994f3</Color>
+		<Color x:Key="ThemeControlHighlightLowColor">#eceffb</Color>
+		<Color x:Key="ThemeControlHighlightMidColor">#a1b2eb</Color>
+		<Color x:Key="ThemeControlHighlightHighColor">#222e57</Color>
 		<Color x:Key="ThemeForegroundColor">#505050</Color>
 		<Color x:Key="ThemeForegroundLowColor">#808080</Color>
 
 		<Color x:Key="HighlightBadgeColor">#9d69ee</Color>
-		<Color x:Key="HighlightColor">#d9e0f7</Color>
+		<Color x:Key="HighlightColor">#6983df</Color>
 		<Color x:Key="HighlightHoverColor">#5e75c8</Color>
 		<Color x:Key="HighlightForegroundColor">#505050</Color>
 

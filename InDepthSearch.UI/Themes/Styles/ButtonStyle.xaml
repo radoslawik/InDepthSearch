@@ -4,7 +4,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="Margin" Value="2" />
-        <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
+		<Setter Property="Background" Value="{DynamicResource ThemeBorderLowBrush}" />
     </Style>
     <Style Selector="Button > TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
@@ -12,18 +12,18 @@
 
 	<Style Selector="Button /template/ ContentPresenter">
 		<Setter Property="Margin" Value="2" />
-		<Setter Property="CornerRadius" Value="5" />
-		<Setter Property="BoxShadow" Value="{DynamicResource BoxShadowSmall}"/>
+		<Setter Property="CornerRadius" Value="5" />		
 	</Style>
 	
     <Style Selector="Button:pointerover /template/ ContentPresenter">
-		<Setter Property="BoxShadow" Value="{DynamicResource BoxShadowLarge}"/>
+		<Setter Property="BoxShadow" Value="{DynamicResource BoxShadowSmall}"/>
     </Style>
 	
     <Style Selector="Button:pointerover">
-        <Setter Property="Background" Value="{DynamicResource HighlightHoverBrush}" />
+        <Setter Property="Background" Value="{DynamicResource ThemeBorderMidBrush}" />
     </Style>
     <Style Selector="Button:pressed /template/ ContentPresenter">
+		<Setter Property="BoxShadow" Value="{DynamicResource BoxShadowLarge}"/>
         <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
     </Style>
     
