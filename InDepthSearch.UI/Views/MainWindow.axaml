@@ -116,11 +116,12 @@
 									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #PrecisionGrid.Bounds.Width}"/>
 						</StackPanel>
 					</UniformGrid>
-				<Button Grid.Row="6" Command="{Binding ReadPDF}" IsEnabled="{Binding Stats.IsReady}" VerticalAlignment="Center" Content="Search" Width="100"/>
+				<Button Grid.Row="6" x:Name="searchButton" Command="{Binding ReadPDF}" IsEnabled="{Binding Stats.IsReady}" VerticalAlignment="Center" Content="Search" Width="100"/>
 			</Grid>		
 		</Border>
 			<Grid Grid.Column="1" Grid.Row="0" Margin="15">
-				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" IsVisible="{Binding !Results.Count}"/>
+				<ContentControl x:Name="lottieControl" RenderOptions.BitmapInterpolationMode="HighQuality" IsVisible="{Binding !Results.Count}" Width="300" Margin="0 0 0 100"/>
+				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" IsVisible="{Binding !Results.Count}" Margin="0 150 0 0"/>
 				<ListBox Name="ResultView" Items="{Binding Results}" IsVisible="{Binding Results.Count}">
 					<ListBox.Template>
 						<ControlTemplate>
