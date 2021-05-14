@@ -247,7 +247,9 @@ namespace InDepthSearch.Core.ViewModels
 
         async void BrowseDirectory()
         {
-            Options.Path = await _directoryService.ChooseDirectory() ?? "";
+            var newDir = await _directoryService.ChooseDirectory();
+            if (!string.IsNullOrEmpty(newDir))
+                Options.Path = newDir;
         }
 
     }
