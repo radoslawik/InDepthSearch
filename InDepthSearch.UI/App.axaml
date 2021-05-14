@@ -5,6 +5,11 @@
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
+
+	<Application.Styles>
+		<!-- Only for the designer -->
+		<StyleInclude Source="avares://InDepthSearch.UI/Themes/Light.xaml"/>
+	</Application.Styles>
 	
 	<Application.Resources>
 		<PathGeometry x:Key="DirectoryIcon">
