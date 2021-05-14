@@ -120,8 +120,8 @@
 			</Grid>		
 		</Border>
 			<Grid Grid.Column="1" Grid.Row="0" Margin="15">
-				<TextBlock Classes="Heading" Text="{Binding ResultInfo}" IsVisible="{Binding !Results.Count}"/>
-				<ListBox Name="ResultView" Items="{Binding Results}" IsVisible="{Binding Results.Count}">
+				<TextBlock Classes="Heading" Text="{Binding ResultInfo}" IsVisible="{Binding !ItemsReady}"/>
+				<ListBox Name="ResultView" Items="{Binding Results}" IsVisible="{Binding ItemsReady}">
 					<ListBox.Template>
 						<ControlTemplate>
 							<DockPanel LastChildFill="True">
@@ -152,12 +152,12 @@
 										<ColumnDefinition Width="7*"/>
 									</Grid.ColumnDefinitions>
 									
-									<TextBlock Grid.Column="0" Text="{Binding FileName}" TextWrapping="WrapWithOverflow" MaxLines="1"/>
+									<TextBlock Grid.Column="0" Text="{Binding FileName}" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxLines="1"/>
 									<TextBlock Grid.Column="1" Text="{Binding PageNumber}" HorizontalAlignment="Center" />
 									<DockPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0">
-										<TextBlock Text="{Binding TextBefore}" />
-										<TextBlock Text="{Binding TextFound}" FontWeight="Bold"/>
-										<TextBlock Text="{Binding TextAfter}" TextWrapping="WrapWithOverflow" MaxLines="1" />
+										<TextBlock Text="{Binding TextBefore}" FontStyle="Italic" />
+										<TextBlock Text="{Binding TextFound}" FontStyle="Italic" FontWeight="Bold"/>
+										<TextBlock Text="{Binding TextAfter}" FontStyle="Italic" TextWrapping="WrapWithOverflow" MaxLines="1" />
 									</DockPanel>
 									</Grid>
 							</Border>

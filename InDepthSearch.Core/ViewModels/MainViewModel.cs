@@ -52,7 +52,9 @@ namespace InDepthSearch.Core.ViewModels
         [Reactive]
         public string AppVersion { get; set; }
         [Reactive]
-        public string CurrentThemeName { get; set; }      
+        public string CurrentThemeName { get; set; }
+        [Reactive]
+        public bool ItemsReady { get; set; }
 
         private Thread? _th;
         private readonly IDocLib _docLib;
@@ -72,6 +74,7 @@ namespace InDepthSearch.Core.ViewModels
             Stats = new ResultStats("Ready", "0/0", true, 0, "0");
             ResultInfo = "Click search button to start";
             CurrentThemeName = Theme.Default.ToString().ToUpper();
+            ItemsReady = false;
 
             // Subscribe for events and set validation rules
             ErrorsChanged += OnValidationErrorsChanged;
@@ -112,6 +115,7 @@ namespace InDepthSearch.Core.ViewModels
             Stats = new ResultStats("Ready", "0/0", true, 0, "0");
             ResultInfo = "Click search button to start";
             CurrentThemeName = themeService.GetCurrentThemeName();
+            ItemsReady = false;
 
             // Subscribe for events and set validation rules
             ErrorsChanged += OnValidationErrorsChanged;
@@ -134,6 +138,7 @@ namespace InDepthSearch.Core.ViewModels
             var searchOptions = Options;
 
             Results.Clear();
+            ItemsReady = false;
             Stats.IsReady = false;
             Stats.Status = "Initializing...";
             Stats.FilesAnalyzed = "0/0";
@@ -155,6 +160,7 @@ namespace InDepthSearch.Core.ViewModels
                 }
 
                 Stats.Status = "Running...";
+                ResultInfo = "Searching...";
                 Stats.FilesAnalyzed = "0/" + discoveredFiles.Count.ToString();
 
                 foreach (var pdf in discoveredFiles)
@@ -189,15 +195,18 @@ namespace InDepthSearch.Core.ViewModels
                     Stats.FilesAnalyzed = fileCounter.ToString() + "/" + discoveredFiles.Count.ToString();
                 }
             }
-            
+
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             System.Diagnostics.Debug.WriteLine("Total execution " + elapsedMs);
             Stats.ExecutionTime = (elapsedMs / 1000.0).ToString() + " seconds";
             Stats.IsReady = true;
             Stats.Status = "Ready";
-            if (!Results.Any()) ResultInfo = "No results found";
-
+            if (!Results.Any())
+            {
+                ResultInfo = "No results found";
+                ItemsReady = false;
+            }
         }
 
         private static void AddBytes(Bitmap bmp, byte[] rawBytes)
@@ -244,6 +253,7 @@ namespace InDepthSearch.Core.ViewModels
 
             while (at > -1)
             {
+                if (!ItemsReady) ItemsReady = true;
                 at = isCaseSensitive ? text.IndexOf(keyword, searchIndex) : text.ToLower().IndexOf(keyword.ToLower(), searchIndex);
                 if (at == -1) break;
                 System.Diagnostics.Debug.WriteLine("Found the keyword " + keyword + " in doc: " + filePath + " on page " + pageNum + " at " + at + " position!");
