@@ -51,14 +51,14 @@
 				</Grid.RowDefinitions>
 				<Image Grid.Row="0" Source="{Binding Logo, Converter={StaticResource imConverter}}" />
 				<Grid Grid.Row="1" VerticalAlignment="Center">
-						<DrawingPresenter MaxWidth="18" MaxHeight="18" IsVisible="{Binding KeywordErrorVisible}" ZIndex="99"
+						<DrawingPresenter MaxWidth="16" MaxHeight="16" IsVisible="{Binding KeywordErrorVisible}" ZIndex="99"
 										  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Keyword cannot be empty!">
 							<DrawingPresenter.Drawing>
 								<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}" />
 							</DrawingPresenter.Drawing>
 						</DrawingPresenter>
 						<TextBox Text="{Binding Options.Keyword}" Watermark="Word or phrase to find"
-								 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="Wrap" />
+								 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
 					</Grid>		
 				<Grid Grid.Row="2" VerticalAlignment="Center">
 						<Grid.ColumnDefinitions>
@@ -67,14 +67,14 @@
 						</Grid.ColumnDefinitions>
 
 						<Grid Grid.Column="0" Margin="0 0 10 0">							
-							<DrawingPresenter MaxWidth="18" MaxHeight="18"  IsVisible="{Binding PathErrorVisible}" ZIndex="99"
+							<DrawingPresenter MaxWidth="16" MaxHeight="16"  IsVisible="{Binding PathErrorVisible}" ZIndex="99"
 											  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Path does not exist!">
 								<DrawingPresenter.Drawing>
 									<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}"/>
 								</DrawingPresenter.Drawing>
 							</DrawingPresenter>
 							<TextBox Text="{Binding Options.Path}" Watermark="Folder to search"
-									 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="WrapWithOverflow"/>
+									 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="WrapWithOverflow" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 						</Grid>
 						<Grid Name="DirectoryButton" Grid.Column="1">
 							<Button Command="{Binding GetDirectory}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
@@ -167,17 +167,8 @@
 				</Grid>
 			
 	</Grid>
-		<Grid Grid.Row="1" Margin="1 0 0 0">
-			<!--
-			<Grid.Background>
-				<LinearGradientBrush >
-					<GradientStop Color="{DynamicResource CyanProjectTransparentColor}" Offset="0" />
-					<GradientStop Color="{DynamicResource BlueProjectTransparentColor}" Offset="0.5" />
-					<GradientStop Color="{DynamicResource VioletProjectTransparentColor}" Offset="1" />				
-				</LinearGradientBrush>
-			</Grid.Background>
-			-->
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+		<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
 				<TextBlock Text="Status: " FontSize="12" FontWeight="DemiBold" Margin="10 0 0 0"/>
 				<TextBlock Text="{Binding Stats.Status}" FontWeight="DemiBold" FontSize="12" />
 				<TextBlock Text="Files analyzed: " FontSize="12" Margin="10 0 0 0" />
@@ -189,10 +180,20 @@
 				<TextBlock Text="Execution time: " FontSize="12" Margin="10 0 0 0" />
 				<TextBlock Text="{Binding Stats.ExecutionTime}" FontSize="12"/>
 			</StackPanel>
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">
 				<TextBlock Text="v" FontSize="12" />
-				<TextBlock Text="{Binding AppVersion}" FontSize="12" Margin="0 0 10 0"/>
-			</StackPanel>
+				<TextBlock Text="{Binding AppVersion}" FontSize="12" Margin="0 0 5 0"/>
+				<Button Command="{Binding ChangeTheme}" Padding="4 1"  Margin="0 0 5 7" VerticalContentAlignment="Center">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock VerticalAlignment="Center" Text="{Binding CurrentThemeName}" FontSize="8" FontWeight="Bold" Margin="1 0"/>
+						<DrawingPresenter Width="8" Height="8" Margin="1 0">
+							<DrawingPresenter.Drawing>
+								<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource ThemeIcon}"/>
+							</DrawingPresenter.Drawing>
+						</DrawingPresenter>
+					</StackPanel>
+
+				</Button>			</StackPanel>
 		</Grid>
 	</Grid>
 	</Border>

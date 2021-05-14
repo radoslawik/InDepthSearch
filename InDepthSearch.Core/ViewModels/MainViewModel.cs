@@ -36,6 +36,7 @@ namespace InDepthSearch.Core.ViewModels
         public ObservableCollection<RecognitionLanguage> LanguageOCR { get; set; }
         public ReactiveCommand<Unit, Unit> ReadPDF { get; }
         public ReactiveCommand<Unit, Unit> GetDirectory { get; }
+        public ReactiveCommand<Unit, Unit> ChangeTheme { get; }
         public string FormatsTT => "Choose which formats to search. NOTE: docx and odt are not supported yet.";
         public string SubfolderTT => "Enable if you wish to search in all directories from the selected path.";
         public string CaseSensitiveTT => "Enable if you wish to differentiate between capital and lower-case letters.";
@@ -50,6 +51,8 @@ namespace InDepthSearch.Core.ViewModels
         public bool PathErrorVisible { get; set; }
         [Reactive]
         public string AppVersion { get; set; }
+        [Reactive]
+        public string CurrentThemeName { get; set; }      
 
         private Thread? _th;
         private readonly IDocLib _docLib;
@@ -68,6 +71,7 @@ namespace InDepthSearch.Core.ViewModels
             Results = new ObservableCollection<QueryResult>();
             Stats = new ResultStats("Ready", "0/0", true, 0, "0");
             ResultInfo = "Click search button to start";
+            CurrentThemeName = Theme.Default.ToString().ToUpper();
 
             // Subscribe for events and set validation rules
             ErrorsChanged += OnValidationErrorsChanged;
@@ -78,7 +82,8 @@ namespace InDepthSearch.Core.ViewModels
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         #endregion
-        public MainViewModel(IOptionService optionService, IDirectoryService directoryService, IAppService infoService)
+        public MainViewModel(IOptionService optionService, IDirectoryService directoryService, 
+            IAppService infoService, IThemeService themeService)
         {
             // Initialize services
             _docLib = DocLib.Instance;
@@ -92,6 +97,11 @@ namespace InDepthSearch.Core.ViewModels
                 _th.IsBackground = true;
                 _th.Start();
             }, this.IsValid());
+            ChangeTheme = ReactiveCommand.Create(() =>
+            {
+                themeService.ChangeTheme();
+                CurrentThemeName = themeService.GetCurrentThemeName();
+            });
 
             // Initialize variables
             PrecisionOCR = new ObservableCollection<RecognitionPrecision>(Enum.GetValues(typeof(RecognitionPrecision)).Cast<RecognitionPrecision>());
@@ -101,6 +111,7 @@ namespace InDepthSearch.Core.ViewModels
             Results = new ObservableCollection<QueryResult>();
             Stats = new ResultStats("Ready", "0/0", true, 0, "0");
             ResultInfo = "Click search button to start";
+            CurrentThemeName = themeService.GetCurrentThemeName();
 
             // Subscribe for events and set validation rules
             ErrorsChanged += OnValidationErrorsChanged;
