@@ -18,23 +18,4 @@
     <Style Selector="ToggleButton:checked /template/ ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
     </Style>
-    
-    <Style Selector="ToggleButton.Primary">
-        <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary > TextBlock">
-        <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary /template/ ContentPresenter">
-        <Setter Property="CornerRadius" Value="5" />
-    </Style>
-    <Style Selector="ToggleButton.Primary:pointerover">
-        <Setter Property="Background" Value="{DynamicResource ThemeBorderHighBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary:pressed /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    </Style>
-    <Style Selector="ToggleButton.Primary:checked /template/ ContentPresenter">
-        <Setter Property="Background" Value="{DynamicResource ThemeAccentBrush}" />
-    </Style>
 </Styles>

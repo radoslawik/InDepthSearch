@@ -5,16 +5,4 @@
         <Setter Property="FontFamily" Value="Roboto" />
         <Setter Property="FontSize" Value="14" />
     </Style>
-    <Style Selector="TextBlock.Heading">
-        <Setter Property="Margin" Value="0 10 0 5" />
-        <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
-        <Setter Property="FontSize" Value="15" />
-    </Style>
-    <Style Selector="TextBlock.Caption">
-        <Setter Property="Foreground" Value="{DynamicResource ThemeControlHighBrush}" />
-    </Style>
-    <Style Selector="TextBlock.Accent">
-        <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}" />
-    </Style>
 </Styles>

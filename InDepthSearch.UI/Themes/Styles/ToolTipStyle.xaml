@@ -7,6 +7,6 @@
 	</Style>
 	<Style Selector="ToolTip /template/ ContentPresenter">
 		<Setter Property="CornerRadius" Value="0" />
-		<!-- fix the corners not being rounded -->
+		<!-- TODO: fix the corners not being rounded -->
 	</Style>
 </Styles>
