@@ -19,10 +19,11 @@ namespace InDepthSearch.UI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var window = new MainWindow();
-                window.DataContext = new MainViewModel(new OptionService(), new DirectoryService(),
-                    new AppService(), new ThemeService(window, Theme.Light));
-                desktop.MainWindow = window;
+                desktop.MainWindow = new MainWindow
+                {
+                    DataContext = new MainViewModel(new OptionService(), new DirectoryService(),
+                    new AppService(), new ThemeService(Theme.Light))
+                };
             }
 
             base.OnFrameworkInitializationCompleted();

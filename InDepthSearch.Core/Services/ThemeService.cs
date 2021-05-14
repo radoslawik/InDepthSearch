@@ -15,26 +15,48 @@ namespace InDepthSearch.Core.Services
     {
         private readonly StyleInclude _lightTheme;
         private readonly StyleInclude _darkTheme;
-        private Theme currentTheme;
-        private readonly Window _window;
+        private Theme currentTheme = Theme.Light;
+        private Window? _window = null;
 
-        public ThemeService(Window window, Theme theme)
+        public ThemeService(Theme theme)
         {
             _lightTheme = CreateStyle("avares://InDepthSearch.UI/Themes/Light.xaml");
             _darkTheme = CreateStyle("avares://InDepthSearch.UI/Themes/Dark.xaml");
             currentTheme = theme;
-            _window = window;
-            if (_window.Styles.Count == 0)
-                _window.Styles.Add(GetTheme(theme));
-            else
-                _window.Styles[0] = GetTheme(theme);
+        }
+
+        private void InitDynamicThemes(Theme theme)
+        {
+            if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                _window = desktop.MainWindow;
+
+                if(_window != null)
+                {
+                    if (_window.Styles.Count == 0)
+                        _window.Styles.Add(GetTheme(theme));
+                    else
+                        _window.Styles[0] = GetTheme(theme);
+
+                    currentTheme = theme;
+                }
+            }
         }
 
         public void ChangeTheme()
         {
             var newTheme = currentTheme == Theme.Light ? Theme.Dark : Theme.Light;
-            _window.Styles[0] = GetTheme(newTheme);
-            currentTheme = newTheme;
+
+            if (_window == null)
+            {
+                InitDynamicThemes(newTheme);
+                return;
+            }
+            else
+            {
+                _window.Styles[0] = GetTheme(newTheme);
+                currentTheme = newTheme;
+            }
         }
 
         public StyleInclude GetTheme(Theme t)

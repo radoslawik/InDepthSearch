@@ -181,8 +181,6 @@
 				<TextBlock Text="{Binding Stats.ExecutionTime}" FontSize="12"/>
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">
-				<TextBlock Text="v" FontSize="12" />
-				<TextBlock Text="{Binding AppVersion}" FontSize="12" Margin="0 0 5 0"/>
 				<Button Command="{Binding ChangeTheme}" Padding="4 1"  Margin="0 0 5 7" VerticalContentAlignment="Center">
 					<StackPanel Orientation="Horizontal">
 						<TextBlock VerticalAlignment="Center" Text="{Binding CurrentThemeName}" FontSize="8" FontWeight="Bold" Margin="1 0"/>
@@ -192,8 +190,10 @@
 							</DrawingPresenter.Drawing>
 						</DrawingPresenter>
 					</StackPanel>
-
-				</Button>			</StackPanel>
+				</Button>
+				<TextBlock Text="v" FontSize="12" />
+				<TextBlock Text="{Binding AppVersion}" FontSize="12" Margin="0 0 10 0"/>						
+			</StackPanel>
 		</Grid>
 	</Grid>
 	</Border>
