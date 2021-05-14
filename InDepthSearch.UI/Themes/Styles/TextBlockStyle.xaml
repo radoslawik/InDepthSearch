@@ -5,4 +5,22 @@
         <Setter Property="FontFamily" Value="Roboto" />
         <Setter Property="FontSize" Value="14" />
     </Style>
+	<Style Selector="TextBlock.Heading">
+		<Setter Property="FontSize" Value="28" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+	</Style>
+	<Style Selector="TextBlock.Caption">
+		<Setter Property="FontSize" Value="12" />
+	</Style>
+	<Style Selector="TextBlock.CaptionSmall">
+		<Setter Property="FontSize" Value="10" />
+		<Setter Property="FontWeight" Value="DemiBold" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
+	<Style Selector="TextBlock.ButtonCaption">
+		<Setter Property="FontSize" Value="8" />
+		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
 </Styles>

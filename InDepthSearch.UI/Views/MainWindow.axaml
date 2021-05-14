@@ -120,7 +120,7 @@
 			</Grid>		
 		</Border>
 			<Grid Grid.Column="1" Grid.Row="0" Margin="15">
-				<TextBlock Text="{Binding ResultInfo}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" IsVisible="{Binding !Results.Count}"/>
+				<TextBlock Classes="Heading" Text="{Binding ResultInfo}" IsVisible="{Binding !Results.Count}"/>
 				<ListBox Name="ResultView" Items="{Binding Results}" IsVisible="{Binding Results.Count}">
 					<ListBox.Template>
 						<ControlTemplate>
@@ -169,21 +169,24 @@
 	</Grid>
 		<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
-				<TextBlock Text="Status: " FontSize="12" FontWeight="DemiBold" Margin="10 0 0 0"/>
-				<TextBlock Text="{Binding Stats.Status}" FontWeight="DemiBold" FontSize="12" />
-				<TextBlock Text="Files analyzed: " FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Stats.FilesAnalyzed}" FontSize="12"/>
-				<TextBlock Text="Pages analyzed: " FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Stats.PagesAnalyzed}" FontSize="12"/>
-				<TextBlock Text="Results found: " FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Results.Count}" FontSize="12"/>
-				<TextBlock Text="Execution time: " FontSize="12" Margin="10 0 0 0" />
-				<TextBlock Text="{Binding Stats.ExecutionTime}" FontSize="12"/>
+				<TextBlock Classes="Caption" Text="Status: " FontWeight="DemiBold" Margin="10 0 0 0"/>
+				<TextBlock Classes="Caption" Text="{Binding Stats.Status}" FontWeight="DemiBold" />
+				<TextBlock Classes="Caption" Text="Files analyzed: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{Binding Stats.FilesAnalyzed}" />
+				<TextBlock Classes="Caption" Text="Pages analyzed: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{Binding Stats.PagesAnalyzed}" />
+				<TextBlock Classes="Caption" Text="Results found: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{Binding Results.Count}" />
+				<TextBlock Classes="Caption" Text="Execution time: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{Binding Stats.ExecutionTime}" />
 			</StackPanel>
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">
-				<Button Command="{Binding ChangeTheme}" Padding="4 1"  Margin="0 0 5 7" VerticalContentAlignment="Center">
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" 
+						Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">				
+				<TextBlock Classes="CaptionSmall" Text="v" Margin="0 1"/>
+				<TextBlock Classes="CaptionSmall" Text="{Binding AppVersion}" Margin="0 1 2 1"/>
+				<Button Command="{Binding ChangeTheme}" Padding="4 1"  Margin="4" VerticalContentAlignment="Center">
 					<StackPanel Orientation="Horizontal">
-						<TextBlock VerticalAlignment="Center" Text="{Binding CurrentThemeName}" FontSize="8" FontWeight="Bold" Margin="1 0"/>
+						<TextBlock Classes="ButtonCaption" Text="{Binding CurrentThemeName}" Margin="1 0"/>
 						<DrawingPresenter Width="8" Height="8" Margin="1 0">
 							<DrawingPresenter.Drawing>
 								<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource ThemeIcon}"/>
@@ -191,8 +194,6 @@
 						</DrawingPresenter>
 					</StackPanel>
 				</Button>
-				<TextBlock Text="v" FontSize="12" />
-				<TextBlock Text="{Binding AppVersion}" FontSize="12" Margin="0 0 10 0"/>						
 			</StackPanel>
 		</Grid>
 	</Grid>
