@@ -1,0 +1,24 @@
+<ResourceDictionary
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Tooltip strings -->
+    <system:String x:Key="FormatsTT">Wybierz rozszerzenia plików. UWAGA: docx i odt nie są jeszcze obsługiwane.</system:String>
+    <system:String x:Key="SubfoldersTT">Wybierz jeśli chcesz szukać również w podfolderach.</system:String>
+    <system:String x:Key="CaseSensitiveTT">Wybierz jeśli chcesz rozróżniać wielkie i małe litery.</system:String>
+    <system:String x:Key="OcrTT">Wybierz Optyczne Rozpoznawanie Znaków (OCR) jeśli chcesz szukać w obrazach.</system:String>
+    <system:String x:Key="LanguageTT">Sprecyzuj język słowa do wyszukania. Ta opcja pozwala na poprawę wyników uzyskiwanych przez OCR. Zostaw domyślne w razie niepewności.</system:String>
+    <system:String x:Key="PrecisionTT">Wybierz precyzję silnika OCR. Lepsza precyzja może pogorszyć czas szukania.</system:String>
+
+	<!-- Theme strings -->
+	<system:String x:Key="ThemeLight">JASNY</system:String>
+	<system:String x:Key="ThemeDark">CIEMNY</system:String>
+
+	<!-- Status strings -->
+	<system:String x:Key="StatusReady">Gotowy</system:String>
+	<system:String x:Key="StatusInitializing">Inicjalizacja...</system:String>
+	<system:String x:Key="StatusRunning">W akcji...</system:String>
+
+
+</ResourceDictionary>

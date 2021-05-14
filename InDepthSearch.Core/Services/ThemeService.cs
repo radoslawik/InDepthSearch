@@ -69,6 +69,16 @@ namespace InDepthSearch.Core.Services
             };
         }
 
+        private static string GetThemeName(Theme t)
+        {
+            return t switch
+            {
+                Theme.Light => (string?)Avalonia.Application.Current.FindResource("ThemeLight") ?? t.ToString().ToUpper(),
+                Theme.Dark => (string?)Avalonia.Application.Current.FindResource("ThemeDark") ?? t.ToString().ToUpper(),
+                _ => t.ToString().ToUpper()
+            };
+        }
+
         private static StyleInclude CreateStyle(string url)
         {
             var self = new Uri("resm:Styles?assembly=InDepthSearch.UI");
@@ -80,7 +90,7 @@ namespace InDepthSearch.Core.Services
 
         public string GetCurrentThemeName()
         {
-            return currentTheme.ToString().ToUpper();
+            return GetThemeName(currentTheme);
         }
     }
 }

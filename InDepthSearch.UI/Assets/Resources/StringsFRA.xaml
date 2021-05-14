@@ -1,0 +1,24 @@
+<ResourceDictionary
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Tooltip strings -->
+    <system:String x:Key="FormatsTT">TODO</system:String>
+    <system:String x:Key="SubfoldersTT">TODO</system:String>
+    <system:String x:Key="CaseSensitiveTT">TODO</system:String>
+	<system:String x:Key="OcrTT">TODO</system:String>
+    <system:String x:Key="LanguageTT">TODO</system:String>
+    <system:String x:Key="PrecisionTT">TODO</system:String>
+
+	<!-- Theme strings -->
+    <system:String x:Key="ThemeLight">JOUR</system:String>
+    <system:String x:Key="ThemeDark">NUIT</system:String>
+
+	<!-- Status strings -->
+	<system:String x:Key="StatusReady">Prêt</system:String>
+	<system:String x:Key="StatusInitializing">Initialisation...</system:String>
+	<system:String x:Key="StatusRunning">En cours...</system:String>
+
+
+</ResourceDictionary>

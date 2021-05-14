@@ -1,0 +1,24 @@
+<ResourceDictionary
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Tooltip strings -->
+    <system:String x:Key="FormatsTT">Choose which formats to search. NOTE: docx and odt are not supported yet.</system:String>
+    <system:String x:Key="SubfoldersTT">Enable if you wish to search in all directories from the selected path.</system:String>
+    <system:String x:Key="CaseSensitiveTT">Enable if you wish to differentiate between capital and lower-case letters.</system:String>
+    <system:String x:Key="OcrTT">Enable Optical Character Recognition engine if you wish to search in images.</system:String>
+    <system:String x:Key="LanguageTT">Specify the language of the keyword. This option could improve the OCR results. Keep default if unsure.</system:String>
+    <system:String x:Key="PrecisionTT">Choose precision of OCR engine. Setting better precision may cause the search to take more time.</system:String>
+
+    <!-- Theme strings -->
+    <system:String x:Key="ThemeLight">LIGHT</system:String>
+    <system:String x:Key="ThemeDark">DARK</system:String>
+
+    <!-- Status strings -->
+    <system:String x:Key="StatusReady">Ready</system:String>
+    <system:String x:Key="StatusInitializing">Initializing...</system:String>
+    <system:String x:Key="StatusRunning">In progress...</system:String>
+
+
+</ResourceDictionary>

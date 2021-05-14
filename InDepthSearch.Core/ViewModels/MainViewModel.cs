@@ -37,12 +37,8 @@ namespace InDepthSearch.Core.ViewModels
         public ReactiveCommand<Unit, Unit> ReadPDF { get; }
         public ReactiveCommand<Unit, Unit> GetDirectory { get; }
         public ReactiveCommand<Unit, Unit> ChangeTheme { get; }
-        public string FormatsTT => "Choose which formats to search. NOTE: docx and odt are not supported yet.";
-        public string SubfolderTT => "Enable if you wish to search in all directories from the selected path.";
-        public string CaseSensitiveTT => "Enable if you wish to differentiate between capital and lower-case letters.";
-        public string OcrTT => "Enable Optical Character Recognition engine if you wish to search in images.";
-        public string LanguageTT => "Specify the language of the keyword. This option could improve the OCR results. Keep default if unsure.";
-        public string PrecisionTT => "Choose precision of OCR engine. Setting better precision may cause the search to take more time.";
+        public ReactiveCommand<Unit, Unit> ChangeLanguage { get; }
+
         [Reactive]
         public string ResultInfo { get; set; }
         [Reactive]
@@ -54,12 +50,20 @@ namespace InDepthSearch.Core.ViewModels
         [Reactive]
         public string CurrentThemeName { get; set; }
         [Reactive]
+        public string CurrentLanguageName { get; set; }
+        [Reactive]
         public bool ItemsReady { get; set; }
+        [Reactive]
+        public SearchStatus AppStatus { get; set; }
+        [Reactive]
+        public string StatusName { get; set; }
 
         private Thread? _th;
         private readonly IDocLib _docLib;
         private readonly IOptionService _optionService;
         private readonly IDirectoryService _directoryService;
+        private readonly IThemeService _themeService;
+        private readonly IAppService _infoService;
 
         #region Empty constructor only for the designer
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -71,9 +75,12 @@ namespace InDepthSearch.Core.ViewModels
             Options = new SearchOptions("", "", PrecisionOCR.FirstOrDefault(), LanguageOCR.FirstOrDefault(),
                 false, true, false, true, false, false);
             Results = new ObservableCollection<QueryResult>();
-            Stats = new ResultStats("Ready", "0/0", true, 0, "0");
+            Stats = new ResultStats("0/0", true, 0, "0");
+            AppStatus = SearchStatus.Ready;
+            StatusName = SearchStatus.Ready.ToString();
             ResultInfo = "Click search button to start";
             CurrentThemeName = Theme.Default.ToString().ToUpper();
+            CurrentLanguageName = Language.English.ToString().ToUpper();
             ItemsReady = false;
 
             // Subscribe for events and set validation rules
@@ -92,6 +99,8 @@ namespace InDepthSearch.Core.ViewModels
             _docLib = DocLib.Instance;
             _optionService = optionService;
             _directoryService = directoryService;
+            _themeService = themeService;
+            _infoService = infoService;
 
             // Initialize commands
             GetDirectory = ReactiveCommand.Create(BrowseDirectory);      
@@ -105,6 +114,12 @@ namespace InDepthSearch.Core.ViewModels
                 themeService.ChangeTheme();
                 CurrentThemeName = themeService.GetCurrentThemeName();
             });
+            ChangeLanguage = ReactiveCommand.Create(() =>
+            {
+                infoService.ChangeLanguage();
+                CurrentLanguageName = infoService.GetCurrentLanguage();
+                UpdateStringResources();
+            });
 
             // Initialize variables
             PrecisionOCR = new ObservableCollection<RecognitionPrecision>(Enum.GetValues(typeof(RecognitionPrecision)).Cast<RecognitionPrecision>());
@@ -112,9 +127,12 @@ namespace InDepthSearch.Core.ViewModels
             Options = new SearchOptions("", "", PrecisionOCR.FirstOrDefault(), LanguageOCR.FirstOrDefault(), 
                 false, true, false, true, false, false);
             Results = new ObservableCollection<QueryResult>();
-            Stats = new ResultStats("Ready", "0/0", true, 0, "0");
+            Stats = new ResultStats("0/0", true, 0, "0");
             ResultInfo = "Click search button to start";
+            AppStatus = SearchStatus.Ready;
+            StatusName = infoService.GetSearchStatus(AppStatus);
             CurrentThemeName = themeService.GetCurrentThemeName();
+            CurrentLanguageName = infoService.GetCurrentLanguage();
             ItemsReady = false;
 
             // Subscribe for events and set validation rules
@@ -125,6 +143,12 @@ namespace InDepthSearch.Core.ViewModels
             // Get assembly version
             AppVersion = infoService.GetVersion();
 
+        }
+
+        private void UpdateStringResources()
+        {
+            CurrentThemeName = _themeService.GetCurrentThemeName();
+            StatusName =  _infoService.GetSearchStatus(AppStatus);
         }
 
         private void OnValidationErrorsChanged(object? sender, System.ComponentModel.DataErrorsChangedEventArgs e)
@@ -138,9 +162,10 @@ namespace InDepthSearch.Core.ViewModels
             var searchOptions = Options;
 
             Results.Clear();
+            AppStatus = SearchStatus.Initializing;
+            StatusName = _infoService.GetSearchStatus(AppStatus);
             ItemsReady = false;
-            Stats.IsReady = false;
-            Stats.Status = "Initializing...";
+            Stats.IsReady = false;           
             Stats.FilesAnalyzed = "0/0";
             Stats.PagesAnalyzed = 0;
             Stats.ExecutionTime = "Waiting to finish";
@@ -159,7 +184,8 @@ namespace InDepthSearch.Core.ViewModels
                     return;
                 }
 
-                Stats.Status = "Running...";
+                AppStatus = SearchStatus.Running;
+                StatusName = _infoService.GetSearchStatus(AppStatus);
                 ResultInfo = "Searching...";
                 Stats.FilesAnalyzed = "0/" + discoveredFiles.Count.ToString();
 
@@ -201,7 +227,8 @@ namespace InDepthSearch.Core.ViewModels
             System.Diagnostics.Debug.WriteLine("Total execution " + elapsedMs);
             Stats.ExecutionTime = (elapsedMs / 1000.0).ToString() + " seconds";
             Stats.IsReady = true;
-            Stats.Status = "Ready";
+            AppStatus = SearchStatus.Ready;
+            StatusName = _infoService.GetSearchStatus(AppStatus);
             if (!Results.Any())
             {
                 ResultInfo = "No results found";

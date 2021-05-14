@@ -88,7 +88,7 @@
 						</Grid>						
 					</Grid>
 				<StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center"
-							ToolTip.Tip="{Binding FormatsTT}" Background="Transparent">
+							ToolTip.Tip="{DynamicResource FormatsTT}" Background="Transparent">
 					<TextBlock Text="Formats" FontSize="12" />
 					<UniformGrid Columns="3">
 						<CheckBox Grid.Column="0" Content="pdf" IsChecked="{Binding Options.UsePDF}"/>
@@ -98,20 +98,20 @@
 				</StackPanel>
 				
 				<StackPanel Grid.Row="4" Orientation="Vertical" VerticalAlignment="Center">
-					<ToggleSwitch ToolTip.Tip="{Binding CaseSensitiveTT}" OnContent="Case-sensitive" OffContent="Case-sensitive"
+					<ToggleSwitch ToolTip.Tip="{DynamicResource CaseSensitiveTT}" OnContent="Case-sensitive" OffContent="Case-sensitive"
 								  IsChecked="{Binding Options.CaseSensitive}" />
-					<ToggleSwitch ToolTip.Tip="{Binding SubfolderTT}" OnContent="Search in subfolders" OffContent="Search in subfolders"
+					<ToggleSwitch ToolTip.Tip="{DynamicResource SubfoldersTT}" OnContent="Search in subfolders" OffContent="Search in subfolders"
 								  IsChecked="{Binding Options.UseSubfolders}" />
-					<ToggleSwitch ToolTip.Tip="{Binding OcrTT}" OnContent="Use image OCR" OffContent="Use image OCR"
+					<ToggleSwitch ToolTip.Tip="{DynamicResource OcrTT}" OnContent="Use image OCR" OffContent="Use image OCR"
 								  IsChecked="{Binding Options.UseOCR}" />
 				</StackPanel>				
 				<UniformGrid Grid.Row="5" Columns="2" VerticalAlignment="Center">
-						<StackPanel Name="LanguageGrid" Grid.Column="0" Margin="2 0" ToolTip.Tip="{Binding LanguageTT}">
+						<StackPanel Name="LanguageGrid" Grid.Column="0" Margin="2 0" ToolTip.Tip="{DynamicResource LanguageTT}">
 							<TextBlock Text="Language" FontSize="12"/>
 							<ComboBox Items="{Binding LanguageOCR}" SelectedItem="{Binding Options.SelectedLanguageOCR}"
 									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #LanguageGrid.Bounds.Width}"/>
 						</StackPanel>
-						<StackPanel Grid.Column="1" Name="PrecisionGrid" Margin="2 0" ToolTip.Tip="{Binding PrecisionTT}">
+						<StackPanel Grid.Column="1" Name="PrecisionGrid" Margin="2 0" ToolTip.Tip="{DynamicResource PrecisionTT}">
 							<TextBlock Text="Precision" FontSize="12"/>
 							<ComboBox Items="{Binding PrecisionOCR}" SelectedItem="{Binding Options.SelectedPrecisionOCR}"
 									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #PrecisionGrid.Bounds.Width}"/>
@@ -171,7 +171,7 @@
 		<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
 				<TextBlock Classes="Caption" Text="Status: " FontWeight="DemiBold" Margin="10 0 0 0"/>
-				<TextBlock Classes="Caption" Text="{Binding Stats.Status}" FontWeight="DemiBold" />
+				<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold" />
 				<TextBlock Classes="Caption" Text="Files analyzed: " Margin="10 0 0 0" />
 				<TextBlock Classes="Caption" Text="{Binding Stats.FilesAnalyzed}" />
 				<TextBlock Classes="Caption" Text="Pages analyzed: " Margin="10 0 0 0" />
@@ -185,12 +185,22 @@
 						Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">				
 				<TextBlock Classes="CaptionSmall" Text="v" Margin="0 1"/>
 				<TextBlock Classes="CaptionSmall" Text="{Binding AppVersion}" Margin="0 1 2 1"/>
-				<Button Command="{Binding ChangeTheme}" Padding="4 1"  Margin="4" VerticalContentAlignment="Center">
+				<Button Command="{Binding ChangeTheme}" Padding="4 1"  Margin="2 4" VerticalContentAlignment="Center">
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Classes="ButtonCaption" Text="{Binding CurrentThemeName}" Margin="1 0"/>
 						<DrawingPresenter Width="8" Height="8" Margin="1 0">
 							<DrawingPresenter.Drawing>
 								<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource ThemeIcon}"/>
+							</DrawingPresenter.Drawing>
+						</DrawingPresenter>
+					</StackPanel>
+				</Button>
+				<Button Command="{Binding ChangeLanguage}" Padding="4 1"  Margin="4" VerticalContentAlignment="Center">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Classes="ButtonCaption" Text="{Binding CurrentLanguageName}" Margin="1 0"/>
+						<DrawingPresenter Width="8" Height="8" Margin="1 0">
+							<DrawingPresenter.Drawing>
+								<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource LanguageIcon}"/>
 							</DrawingPresenter.Drawing>
 						</DrawingPresenter>
 					</StackPanel>
