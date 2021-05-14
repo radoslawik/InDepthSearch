@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InDepthSearch.Core.Services
 {
-    public class AppInfo : IAppInfo
+    public class AppService : IAppService
     {
         public string GetVersion()
         {

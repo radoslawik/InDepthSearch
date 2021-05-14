@@ -78,7 +78,7 @@ namespace InDepthSearch.Core.ViewModels
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         #endregion
-        public MainViewModel(IOptionService optionService, IDirectoryService directoryService, IAppInfo infoService)
+        public MainViewModel(IOptionService optionService, IDirectoryService directoryService, IAppService infoService)
         {
             // Initialize services
             _docLib = DocLib.Instance;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InDepthSearch.Core.Services.Interfaces
 {
-    public interface IAppInfo
+    public interface IAppService
     {
         public string GetVersion();
     }

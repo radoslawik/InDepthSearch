@@ -12,7 +12,7 @@ namespace InDepthSearch.Tests.ViewModels
 
         public MainViewModelTest()
         {
-            _mainViewModel = new MainViewModel(new OptionService(), new DirectoryService(), new AppInfo()); // TODO implement mocked services
+            _mainViewModel = new MainViewModel(new OptionService(), new DirectoryService(), new AppService()); // TODO implement mocked services
         }
 
         [Fact]
