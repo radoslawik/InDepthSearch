@@ -7,7 +7,7 @@
         mc:Ignorable="d" Width="1220" Height="780" MinWidth="1000" MinHeight="600"
         x:Class="InDepthSearch.UI.Views.MainWindow"
 		x:Name="Main"
-        Icon="/Assets/ids-icon.ico"
+        Icon="/Assets/Images/ids-icon.ico"
 		Title="InDepthSearch">
 		
 	<Design.DataContext>

@@ -3,7 +3,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-	<ApplicationIcon>Assets\ids-icon.ico</ApplicationIcon>
+	<ApplicationIcon>Assets\Images\ids-icon.ico</ApplicationIcon>
 	<Version>0.2.0</Version>
   </PropertyGroup>
   <ItemGroup>

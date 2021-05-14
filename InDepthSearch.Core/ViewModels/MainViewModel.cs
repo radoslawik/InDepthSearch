@@ -22,7 +22,7 @@ namespace InDepthSearch.Core.ViewModels
 {
     public class MainViewModel : ReactiveValidationObject
     {
-        public string Logo => "avares://InDepthSearch.UI/Assets/ids-logo.png";
+        public string Logo => "avares://InDepthSearch.UI/Assets/Images/ids-logo.png";
 
         [Reactive]
         public ObservableCollection<QueryResult> Results { get; set; }
