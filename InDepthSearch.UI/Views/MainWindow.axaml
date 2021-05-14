@@ -87,8 +87,9 @@
 							</Button>
 						</Grid>						
 					</Grid>
-				<StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center">
-					<TextBlock Text="Formats" FontSize="12" ToolTip.Tip="{Binding FormatsTT}"/>
+				<StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center"
+							ToolTip.Tip="{Binding FormatsTT}" Background="Transparent">
+					<TextBlock Text="Formats" FontSize="12" />
 					<UniformGrid Columns="3">
 						<CheckBox Grid.Column="0" Content="pdf" IsChecked="{Binding Options.UsePDF}"/>
 						<CheckBox Grid.Column="1" Content="docx" IsChecked="{Binding Options.UseDOCX}" IsEnabled="False"/>
@@ -131,9 +132,9 @@
 										<ColumnDefinition Width="*"/>
 										<ColumnDefinition Width="7*"/>
 									</Grid.ColumnDefinitions>
-									<Label Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">FILE</Label>
-									<Label Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">PAGE</Label>
-									<Label Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0">RESULT FOUND</Label>
+									<Label Classes="ResultHeading" Grid.Column="0">FILE</Label>
+									<Label Classes="ResultHeading" Grid.Column="1">PAGE</Label>
+									<Label Classes="ResultHeading" Grid.Column="2" Margin="5 0">RESULTS</Label>
 								</Grid>
 								<ScrollViewer>
 									<ItemsPresenter></ItemsPresenter>
@@ -144,8 +145,8 @@
 					</ListBox.Template>
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<Border>
-								<Grid ToolTip.Tip="{Binding FilePath}">
+							<Border Background="Transparent" ToolTip.Tip="{Binding FilePath}">
+								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="2*"/>
 										<ColumnDefinition Width="*"/>
@@ -155,9 +156,9 @@
 									<TextBlock Grid.Column="0" Text="{Binding FileName}" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxLines="1"/>
 									<TextBlock Grid.Column="1" Text="{Binding PageNumber}" HorizontalAlignment="Center" />
 									<DockPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0">
-										<TextBlock Text="{Binding TextBefore}" FontStyle="Italic" />
-										<TextBlock Text="{Binding TextFound}" FontStyle="Italic" FontWeight="Bold"/>
-										<TextBlock Text="{Binding TextAfter}" FontStyle="Italic" TextWrapping="WrapWithOverflow" MaxLines="1" />
+										<TextBlock Classes="Result" Text="{Binding TextBefore}" />
+										<TextBlock Classes="Result" Text="{Binding TextFound}" FontWeight="Bold"/>
+										<TextBlock Classes="Result" Text="{Binding TextAfter}" TextWrapping="WrapWithOverflow" />
 									</DockPanel>
 									</Grid>
 							</Border>

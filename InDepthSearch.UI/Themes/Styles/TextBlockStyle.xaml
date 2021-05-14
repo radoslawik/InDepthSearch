@@ -23,4 +23,12 @@
 		<Setter Property="FontWeight" Value="Bold" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
+	<Style Selector="TextBlock.ResultHeading">
+		<Setter Property="FontWeight" Value="DemiBold" />
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+	<Style Selector="TextBlock.Result">
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="MaxLines" Value="1"/>
+	</Style>
 </Styles>

@@ -1,0 +1,10 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="Label.ResultHeading">
+        <Setter Property="FontFamily" Value="Roboto" />
+		<Setter Property="FontSize" Value="16" />
+		<Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+</Styles>

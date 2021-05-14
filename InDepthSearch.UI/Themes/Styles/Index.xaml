@@ -5,6 +5,7 @@
     <StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/TextBlockStyle.xaml"/>
     <StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/ButtonStyle.xaml"/>
     <StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/TextBoxStyle.xaml"/>
+	<StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/LabelStyle.xaml"/>
 	<StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/ListBoxStyle.xaml"/>
     <StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/ComboBoxStyle.xaml"/>
     <StyleInclude Source="avares://InDepthSearch.UI/Themes/Styles/CheckBoxStyle.xaml"/>
