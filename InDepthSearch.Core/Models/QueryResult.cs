@@ -13,11 +13,11 @@ namespace InDepthSearch.Core.Models
         public QueryResult()
         {
             MatchScale = MatchConfidence.High;
-            FilePath = "";
-            FileName = "";
-            TextBefore = "";
-            TextFound = "";
-            TextAfter = "";
+            FilePath = "filePath";
+            FileName = "fileName";
+            TextBefore = "you found";
+            TextFound = "KEYWORD";
+            TextAfter = "here!";
             PageNumber = 0;
         }
 

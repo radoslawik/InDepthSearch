@@ -1,0 +1,89 @@
+<Style xmlns="https://github.com/avaloniaui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:sys="clr-namespace:System;assembly=netstandard"
+	   xmlns:avalonia="using:Avalonia.Media">
+    <Style.Resources>
+
+		<Color x:Key="ThemeAccentColor">#00c4cc</Color>
+		<Color x:Key="ThemeAccentColor2">#00c4cc</Color> <!-- needed for default theme toggle switch -->
+		<Color x:Key="ThemeAccentColor3">#00c4cc</Color> <!-- needed for default theme toggle switch -->
+		<Color x:Key="ThemeAccentBadgeColor">#4465d8</Color>
+
+		<Color x:Key="ThemeCardColor">#191919</Color>
+		<Color x:Key="ThemeBackgroundColor">#1c1c1c</Color>
+		<Color x:Key="ThemeBorderLowColor">#424242</Color>
+		<Color x:Key="ThemeBorderMidColor">#666666</Color>
+		<Color x:Key="ThemeBorderHighColor">#7d7d7d</Color>
+
+		<Color x:Key="ThemeControlLowColor">#002728</Color>
+		<Color x:Key="ThemeControlMidColor">#004e51</Color>
+		<Color x:Key="ThemeControlMidHighColor">#00757a</Color>
+		<Color x:Key="ThemeControlHighColor">#009ca3</Color>
+		<Color x:Key="ThemeControlVeryHighColor">#00b0b7</Color>
+
+		<Color x:Key="ThemeControlHighlightLowColor">#004e51</Color>
+		<Color x:Key="ThemeControlHighlightMidColor">#003a3d</Color>
+		<Color x:Key="ThemeControlHighlightHighColor">#002728</Color>
+		<Color x:Key="ThemeForegroundColor">#cacaca</Color>
+		<Color x:Key="ThemeForegroundLowColor">#ededed</Color>
+
+		<Color x:Key="HighlightBadgeColor">#006266</Color>
+		<Color x:Key="HighlightColor">#7d7d7d</Color>
+		<Color x:Key="HighlightHoverColor">#00c4cc</Color>
+		<Color x:Key="HighlightForegroundColor">#FFFFFF</Color>
+
+		<Color x:Key="ThemeMainBackgroundColor">#004e51</Color>
+		<Color x:Key="ThemeIconForegroundColor">#00c4cc</Color>
+
+        <SolidColorBrush x:Key="ThemeCardBrush" Color="{DynamicResource ThemeCardColor}"/>
+        <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{DynamicResource ThemeBackgroundColor}"/>
+        <SolidColorBrush x:Key="ThemeBorderLowBrush" Color="{DynamicResource ThemeBorderLowColor}"/>
+        <SolidColorBrush x:Key="ThemeBorderMidBrush" Color="{DynamicResource ThemeBorderMidColor}"/>
+        <SolidColorBrush x:Key="ThemeBorderHighBrush" Color="{DynamicResource ThemeBorderHighColor}"/>
+        <SolidColorBrush x:Key="ThemeControlLowBrush" Color="{DynamicResource ThemeControlLowColor}"/>
+        <SolidColorBrush x:Key="ThemeControlMidBrush" Color="{DynamicResource ThemeControlMidColor}"/>
+        <SolidColorBrush x:Key="ThemeControlMidHighBrush" Color="{DynamicResource ThemeControlMidHighColor}"/>
+        <SolidColorBrush x:Key="ThemeControlHighBrush" Color="{DynamicResource ThemeControlHighColor}"/>
+        <SolidColorBrush x:Key="ThemeControlVeryHighBrush" Color="{DynamicResource ThemeControlVeryHighColor}"/>
+        <SolidColorBrush x:Key="ThemeControlHighlightLowBrush" Color="{DynamicResource ThemeControlHighlightLowColor}"/>
+        <SolidColorBrush x:Key="ThemeControlHighlightMidBrush" Color="{DynamicResource ThemeControlHighlightMidColor}"/>
+        <SolidColorBrush x:Key="ThemeControlHighlightHighBrush" Color="{DynamicResource ThemeControlHighlightHighColor}"/>
+        <SolidColorBrush x:Key="ThemeForegroundBrush" Color="{DynamicResource ThemeForegroundColor}"/>
+        <SolidColorBrush x:Key="ThemeForegroundLowBrush" Color="{DynamicResource ThemeForegroundLowColor}"/>
+
+        <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightColor}"/>
+        <SolidColorBrush x:Key="HighlightBadgeBrush" Color="{DynamicResource HighlightBadgeColor}"/>
+        <SolidColorBrush x:Key="HighlightHoverBrush" Color="{DynamicResource HighlightHoverColor}"/>
+        <SolidColorBrush x:Key="HighlightForegroundBrush" Color="{DynamicResource HighlightForegroundColor}"/>
+        <SolidColorBrush x:Key="ThemeAccentBrush" Color="{DynamicResource ThemeAccentColor}"/>
+        <SolidColorBrush x:Key="ThemeAccentBadgeBrush" Color="{DynamicResource ThemeAccentBadgeColor}"/>
+
+        <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>
+        <sys:Double x:Key="FontSizeSmall">13</sys:Double>
+        <sys:Double x:Key="FontSizeNormal">14</sys:Double>
+        <sys:Double x:Key="FontSizeLarge">14</sys:Double>
+
+        <sys:Double x:Key="ScrollBarThickness">18</sys:Double>
+        <sys:Double x:Key="ScrollBarThumbThickness">8</sys:Double>
+
+		<avalonia:BoxShadows x:Key="BoxShadowSuper">0 0 5 0.3 #595959</avalonia:BoxShadows>
+		<avalonia:BoxShadows x:Key="BoxShadowLarge">0 0 2 0.5 #595959</avalonia:BoxShadows>
+		<avalonia:BoxShadows x:Key="BoxShadowSmall">0 0 2 0.75 #4c4c4c</avalonia:BoxShadows>
+
+		<SolidColorBrush x:Key="ThemeMainBackgroundBrush" Color="{DynamicResource ThemeMainBackgroundColor}"/>
+		<SolidColorBrush x:Key="ThemeIconForegroundBrush" Color="{DynamicResource ThemeIconForegroundColor}"/>
+
+		<SolidColorBrush x:Key="CyanProjectBrush">#00c4cc</SolidColorBrush>
+		<SolidColorBrush x:Key="BlueProjectBrush">#0528c5</SolidColorBrush>
+		<SolidColorBrush x:Key="VioletProjectBrush">#6200e2</SolidColorBrush>
+
+		<Color x:Key="CyanProjectColor">#00c4cc</Color>
+		<Color x:Key="BlueProjectColor">#4465d8</Color>
+		<Color x:Key="VioletProjectColor">#742ae7</Color>
+
+		<Color x:Key="VioletThemeColor">#40f7f0ff</Color>
+		<Color x:Key="BlueThemeColor">#40e6eafe</Color>
+		<Color x:Key="CyanThemeColor">#90ccfdff</Color>
+
+	</Style.Resources>
+</Style>

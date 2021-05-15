@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource ThemeForegroundBrush}" />
+        <Setter Property="FontFamily" Value="Roboto" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+	<Style Selector="TextBlock.Heading">
+		<Setter Property="FontSize" Value="28" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+	</Style>
+	<Style Selector="TextBlock.Caption">
+		<Setter Property="FontSize" Value="12" />
+	</Style>
+	<Style Selector="TextBlock.CaptionSmall">
+		<Setter Property="FontSize" Value="10" />
+		<Setter Property="FontWeight" Value="DemiBold" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
+	<Style Selector="TextBlock.ButtonCaption">
+		<Setter Property="FontSize" Value="8" />
+		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
+	<Style Selector="TextBlock.ResultHeading">
+		<Setter Property="FontWeight" Value="DemiBold" />
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+	<Style Selector="TextBlock.Result">
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="MaxLines" Value="1"/>
+	</Style>
+</Styles>

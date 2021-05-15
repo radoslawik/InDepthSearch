@@ -1,0 +1,12 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="ToolTip">
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Padding" Value="5" />
+		<Setter Property="Background" Value="{DynamicResource ThemeBorderLowBrush}" />
+	</Style>
+	<Style Selector="ToolTip /template/ ContentPresenter">
+		<Setter Property="CornerRadius" Value="0" />
+		<!-- TODO: fix the corners not being rounded -->
+	</Style>
+</Styles>

@@ -7,35 +7,17 @@
     </Application.DataTemplates>
 
 	<Application.Styles>
-		<FluentTheme Mode="Light"/>
+		<!-- Only for the designer -->
+		<StyleInclude Source="avares://InDepthSearch.UI/Themes/Light.xaml"/>
 	</Application.Styles>
 	
 	<Application.Resources>
-		<SolidColorBrush x:Key="CyanProjectBrush">#00c4cc</SolidColorBrush>
-		<SolidColorBrush x:Key="BlueProjectBrush">#0528c5</SolidColorBrush>
-		<SolidColorBrush x:Key="VioletProjectBrush">#6200e2</SolidColorBrush>
-		
-		<Color x:Key="CyanProjectColor">#00c4cc</Color>
-		<Color x:Key="BlueProjectColor">#0528c5</Color>
-		<Color x:Key="VioletProjectColor">#6200e2</Color>
-		
-		<Color x:Key="CyanProjectTransparentColor">#A000c4cc</Color>
-		<Color x:Key="BlueProjectTransparentColor">#A00528c5</Color>
-		<Color x:Key="VioletProjectTransparentColor">#A06200e2</Color>
-		
-		<Color x:Key="VioletWhiteTransperentColor">#E0f7f0ff</Color>
-		<Color x:Key="BlueWhiteTransperentColor">#E0e6eafe</Color>
-		<Color x:Key="CyanWhiteTransperentColor">#E0ccfdff</Color>
-		
-		<PathGeometry x:Key="DirectoryIcon">
-			M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z
-		</PathGeometry>
-		<PathGeometry x:Key="ValidCheckIcon">
-			M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z
-		</PathGeometry>
-		<PathGeometry x:Key="InvalidCheckIcon">
-			M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z
-		</PathGeometry>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source='avares://InDepthSearch.UI/Assets/Resources/StringsENG.xaml'/>
+				<ResourceInclude Source='avares://InDepthSearch.UI/Assets/Resources/Icons.xaml'/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</Application.Resources>
 	
 </Application>

@@ -22,7 +22,7 @@ namespace InDepthSearch.Core.ViewModels
 {
     public class MainViewModel : ReactiveValidationObject
     {
-        public string Logo => "avares://InDepthSearch.UI/Assets/ids-logo.png";
+        public string Logo => "avares://InDepthSearch.UI/Assets/Images/ids-logo.png";
 
         [Reactive]
         public ObservableCollection<QueryResult> Results { get; set; }
@@ -36,23 +36,32 @@ namespace InDepthSearch.Core.ViewModels
         public ObservableCollection<RecognitionLanguage> LanguageOCR { get; set; }
         public ReactiveCommand<Unit, Unit> ReadPDF { get; }
         public ReactiveCommand<Unit, Unit> GetDirectory { get; }
-        public string FormatsTT => "Choose which formats to search. NOTE: docx and odt are not supported yet.";
-        public string SubfolderTT => "Enable if you wish to search in all directories from the selected path.";
-        public string CaseSensitiveTT => "Enable if you wish to differentiate between capital and lower-case letters.";
-        public string OcrTT => "Enable Optical Character Recognition engine if you wish to search in images.";
-        public string LanguageTT => "Specify the language of the keyword. This option could improve the OCR results. Keep default if unsure.";
-        public string PrecisionTT => "Choose precision of OCR engine. Setting better precision may cause the search to take more time.";
+        public ReactiveCommand<Unit, Unit> ChangeTheme { get; }
+        public ReactiveCommand<Unit, Unit> ChangeLanguage { get; }
+
         [Reactive]
         public string ResultInfo { get; set; }
         [Reactive]
         public bool KeywordErrorVisible { get; set; }
         [Reactive]
         public bool PathErrorVisible { get; set; }
+        [Reactive]
+        public string AppVersion { get; set; }
+        [Reactive]
+        public string CurrentThemeName { get; set; }
+        [Reactive]
+        public string CurrentLanguageName { get; set; }
+        [Reactive]
+        public bool ItemsReady { get; set; }
+        [Reactive]
+        public string StatusName { get; set; }
 
         private Thread? _th;
         private readonly IDocLib _docLib;
         private readonly IOptionService _optionService;
         private readonly IDirectoryService _directoryService;
+        private readonly IThemeService _themeService;
+        private readonly IAppService _infoService;
 
         #region Empty constructor only for the designer
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -64,22 +73,31 @@ namespace InDepthSearch.Core.ViewModels
             Options = new SearchOptions("", "", PrecisionOCR.FirstOrDefault(), LanguageOCR.FirstOrDefault(),
                 false, true, false, true, false, false);
             Results = new ObservableCollection<QueryResult>();
-            Stats = new ResultStats("Ready", "0/0", true, 0, "0");
+            Stats = new ResultStats("0/0", true, 0, "0");
+            StatusName = SearchStatus.Ready.ToString();
             ResultInfo = "Click search button to start";
+            CurrentThemeName = Theme.Default.ToString().ToUpper();
+            CurrentLanguageName = AppLanguage.English.ToString().ToUpper();
+            ItemsReady = false;
 
             // Subscribe for events and set validation rules
             ErrorsChanged += OnValidationErrorsChanged;
             this.ValidationRule(x => x.Options.Keyword, key => !string.IsNullOrEmpty(key), "Keyword cannot be empty!");
             this.ValidationRule(x => x.Options.Path, key => !string.IsNullOrEmpty(key) && Directory.Exists(key), "Path has to be valid!");
+
+            AppVersion = "x.x.x";
         }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         #endregion
-        public MainViewModel(IOptionService optionService, IDirectoryService directoryService)
+        public MainViewModel(IOptionService optionService, IDirectoryService directoryService, 
+            IAppService infoService, IThemeService themeService)
         {
             // Initialize services
             _docLib = DocLib.Instance;
             _optionService = optionService;
             _directoryService = directoryService;
+            _themeService = themeService;
+            _infoService = infoService;
 
             // Initialize commands
             GetDirectory = ReactiveCommand.Create(BrowseDirectory);      
@@ -88,6 +106,17 @@ namespace InDepthSearch.Core.ViewModels
                 _th.IsBackground = true;
                 _th.Start();
             }, this.IsValid());
+            ChangeTheme = ReactiveCommand.Create(() =>
+            {
+                themeService.ChangeTheme();
+                CurrentThemeName = themeService.GetCurrentThemeName();
+            });
+            ChangeLanguage = ReactiveCommand.Create(() =>
+            {
+                infoService.ChangeLanguage();
+                CurrentLanguageName = infoService.GetCurrentLanguage();
+                UpdateStringResources();
+            });
 
             // Initialize variables
             PrecisionOCR = new ObservableCollection<RecognitionPrecision>(Enum.GetValues(typeof(RecognitionPrecision)).Cast<RecognitionPrecision>());
@@ -95,13 +124,28 @@ namespace InDepthSearch.Core.ViewModels
             Options = new SearchOptions("", "", PrecisionOCR.FirstOrDefault(), LanguageOCR.FirstOrDefault(), 
                 false, true, false, true, false, false);
             Results = new ObservableCollection<QueryResult>();
-            Stats = new ResultStats("Ready", "0/0", true, 0, "0");
-            ResultInfo = "Click search button to start";
+            Stats = new ResultStats("0/0", true, 0, "0");
+            ResultInfo = infoService.GetSearchInfo(SearchInfo.Init);
+            StatusName = infoService.GetSearchStatus(SearchStatus.Ready);
+            CurrentThemeName = themeService.GetCurrentThemeName();
+            CurrentLanguageName = infoService.GetCurrentLanguage();
+            ItemsReady = false;
 
             // Subscribe for events and set validation rules
             ErrorsChanged += OnValidationErrorsChanged;
             this.ValidationRule(x => x.Options.Keyword, key => !string.IsNullOrEmpty(key), "Keyword cannot be empty!");
             this.ValidationRule(x => x.Options.Path, key => !string.IsNullOrEmpty(key) && Directory.Exists(key), "Path has to be valid!");
+
+            // Get assembly version
+            AppVersion = infoService.GetVersion();
+
+        }
+
+        private void UpdateStringResources()
+        {
+            CurrentThemeName = _themeService.GetCurrentThemeName();
+            StatusName =  _infoService.GetSearchStatus();
+            ResultInfo = _infoService.GetSearchInfo();
         }
 
         private void OnValidationErrorsChanged(object? sender, System.ComponentModel.DataErrorsChangedEventArgs e)
@@ -114,13 +158,13 @@ namespace InDepthSearch.Core.ViewModels
         {
             var searchOptions = Options;
 
-            ResultInfo = "";
             Results.Clear();
-            Stats.IsReady = false;
-            Stats.Status = "Initializing...";
+            StatusName = _infoService.GetSearchStatus(SearchStatus.Initializing);
+            ItemsReady = false;
+            Stats.IsReady = false;           
             Stats.FilesAnalyzed = "0/0";
             Stats.PagesAnalyzed = 0;
-            Stats.ExecutionTime = "Waiting to finish";
+            Stats.ExecutionTime = "...";
 
             var fileCounter = 0;
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -136,7 +180,8 @@ namespace InDepthSearch.Core.ViewModels
                     return;
                 }
 
-                Stats.Status = "Running...";
+                StatusName = _infoService.GetSearchStatus(SearchStatus.Running);
+                ResultInfo = _infoService.GetSearchInfo(SearchInfo.Init);
                 Stats.FilesAnalyzed = "0/" + discoveredFiles.Count.ToString();
 
                 foreach (var pdf in discoveredFiles)
@@ -171,15 +216,18 @@ namespace InDepthSearch.Core.ViewModels
                     Stats.FilesAnalyzed = fileCounter.ToString() + "/" + discoveredFiles.Count.ToString();
                 }
             }
-            
+
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             System.Diagnostics.Debug.WriteLine("Total execution " + elapsedMs);
-            Stats.ExecutionTime = (elapsedMs / 1000.0).ToString() + " seconds";
+            Stats.ExecutionTime = (elapsedMs / 1000.0).ToString() + " " + _infoService.GetSecondsString();
             Stats.IsReady = true;
-            Stats.Status = "Ready";
-            if (!Results.Any()) ResultInfo = "No results found";
-
+            StatusName = _infoService.GetSearchStatus(SearchStatus.Ready);
+            if (!Results.Any())
+            {
+                ResultInfo = _infoService.GetSearchInfo(SearchInfo.NoResults);
+                ItemsReady = false;
+            }
         }
 
         private static void AddBytes(Bitmap bmp, byte[] rawBytes)
@@ -226,6 +274,7 @@ namespace InDepthSearch.Core.ViewModels
 
             while (at > -1)
             {
+                if (!ItemsReady) ItemsReady = true;
                 at = isCaseSensitive ? text.IndexOf(keyword, searchIndex) : text.ToLower().IndexOf(keyword.ToLower(), searchIndex);
                 if (at == -1) break;
                 System.Diagnostics.Debug.WriteLine("Found the keyword " + keyword + " in doc: " + filePath + " on page " + pageNum + " at " + at + " position!");
@@ -240,7 +289,9 @@ namespace InDepthSearch.Core.ViewModels
 
         async void BrowseDirectory()
         {
-            Options.Path = await _directoryService.ChooseDirectory() ?? "";
+            var newDir = await _directoryService.ChooseDirectory();
+            if (!string.IsNullOrEmpty(newDir))
+                Options.Path = newDir;
         }
 
     }

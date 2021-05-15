@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using InDepthSearch.Core.Services;
+using InDepthSearch.Core.Types;
 using InDepthSearch.Core.ViewModels;
 using InDepthSearch.UI.Views;
 
@@ -20,7 +21,8 @@ namespace InDepthSearch.UI
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainViewModel(new OptionService(), new DirectoryService()),
+                    DataContext = new MainViewModel(new OptionService(), new DirectoryService(),
+                    new AppService(AppLanguage.English), new ThemeService(Theme.Light))
                 };
             }
 

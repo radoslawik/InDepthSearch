@@ -1,0 +1,69 @@
+<ResourceDictionary
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+	<!--
+        DYNAMIC
+        STRINGS    
+    -->
+	<!-- Theme strings -->
+    <system:String x:Key="ThemeLight">JOUR</system:String>
+    <system:String x:Key="ThemeDark">NUIT</system:String>
+
+	<!-- Status strings -->
+	<system:String x:Key="StatusReady">Prêt</system:String>
+	<system:String x:Key="StatusInitializing">Initialisation...</system:String>
+	<system:String x:Key="StatusRunning">En cours...</system:String>
+
+	<!-- ResultInfo strings -->
+	<system:String x:Key="InfoInit">Cliquez le bouton recherche pour commencer</system:String>
+	<system:String x:Key="InfoRun">En cours...</system:String>
+	<system:String x:Key="InfoNoResults">Aucun resultat trouve</system:String>
+
+	<!-- Other dynamic strings -->
+	<system:String x:Key="TimeSeconds">secondes</system:String>
+	
+	<!--
+        STATIC
+        STRINGS    
+    -->
+	<!-- Tooltip strings -->
+	<system:String x:Key="FormatsTT">Choisissez le format a recherche. Attention: docx et odt ne sont pas encore disponibles.</system:String>
+	<system:String x:Key="SubfoldersTT">Cliquez ici si vous souhaitez rechercher dans tous les sous-dossiers du dossier selectionne.</system:String>
+	<system:String x:Key="CaseSensitiveTT">Activez si vous souhaitez faire la différence entre les majuscules et les minuscules.</system:String>
+	<system:String x:Key="OcrTT">Activez le moteur de reconnaissance optique de caractères si vous souhaitez effectuer une recherche dans les images.</system:String>
+	<system:String x:Key="LanguageTT">Spécifiez la langue du mot-clé. Cette option pourrait améliorer les résultats de l'OCR. Conserver la valeur par défaut en cas de doute.</system:String>
+	<system:String x:Key="PrecisionTT">Choisissez la précision du moteur OCR. La définition d'une meilleure précision peut entraîner une durée de recherche plus longue.</system:String>
+	<system:String x:Key="KeywordEmptyTT">Le mot-clé ne peut pas être vide!</system:String>
+	<system:String x:Key="PathErrorTT">Le dossier n'existe pas!</system:String>
+
+	<!-- Watermarks strings -->
+	<system:String x:Key="KeywordW">Mot ou phrase à trouver</system:String>
+	<system:String x:Key="PathW">Dossier à rechercher</system:String>
+
+	<!-- Options strings -->
+	<system:String x:Key="Formats">Formats</system:String>
+	<system:String x:Key="CaseSensitive">Sensible aux majuscules et minuscules</system:String>
+	<system:String x:Key="Subfolders">Rechercher dans les sous-dossiers</system:String>
+	<system:String x:Key="OCR">Utiliser l'OCR</system:String>
+	<system:String x:Key="RecognitionLanguage">Langue de reconnaissance</system:String>
+	<system:String x:Key="RecognitionPrecision">Précision de reconnaissance</system:String>
+	<system:String x:Key="Search">RECHERCHER</system:String>
+
+	<!-- Results strings -->
+	<system:String x:Key="File">FICHER</system:String>
+	<system:String x:Key="Page">PAGE</system:String>
+	<system:String x:Key="Results">RESULTATS</system:String>
+
+	<!-- Status bar strings -->
+	<system:String x:Key="StatusString">Status: </system:String>
+	<system:String x:Key="FilesAnalyzed">Fichiers analysés: </system:String>
+	<system:String x:Key="PagesAnalyzed">Pages analysés: </system:String>
+	<system:String x:Key="ResultsFound">Résultats trouvés: </system:String>
+	<system:String x:Key="ExecutionTime">Temps d'exécution </system:String>
+
+	<!-- Other static strings -->
+	<system:String x:Key="SelectFolder">Sélectionner le dossier</system:String>
+	
+</ResourceDictionary>

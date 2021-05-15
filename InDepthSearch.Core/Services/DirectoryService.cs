@@ -13,7 +13,10 @@ namespace InDepthSearch.Core.Services
     {
         public async Task<string?> ChooseDirectory()
         {
-            OpenFolderDialog dialog = new OpenFolderDialog();
+            OpenFolderDialog dialog = new OpenFolderDialog
+            {
+                Title = (string?)Avalonia.Application.Current.FindResource("SelectFolder") ?? "Select folder"
+            };
             if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
                 return await dialog.ShowAsync(desktop.MainWindow);
             else

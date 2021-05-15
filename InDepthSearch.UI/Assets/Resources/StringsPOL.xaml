@@ -1,0 +1,69 @@
+<ResourceDictionary
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+	<!--
+        DYNAMIC
+        STRINGS    
+    -->
+	<!-- Theme strings -->
+	<system:String x:Key="ThemeLight">JASNY</system:String>
+	<system:String x:Key="ThemeDark">CIEMNY</system:String>
+
+	<!-- Status strings -->
+	<system:String x:Key="StatusReady">Gotowy</system:String>
+	<system:String x:Key="StatusInitializing">Inicjalizacja...</system:String>
+	<system:String x:Key="StatusRunning">W akcji...</system:String>
+
+	<!-- ResultInfo strings -->
+	<system:String x:Key="InfoInit">Naciśnij start aby zacząć</system:String>
+	<system:String x:Key="InfoRun">Wyszukiwanie...</system:String>
+	<system:String x:Key="InfoNoResults">Nic nie znaleziono</system:String>
+
+	<!-- Other dynamic strings -->
+	<system:String x:Key="TimeSeconds">sekundy</system:String>
+	
+	<!--
+        STATIC
+        STRINGS    
+    -->
+	<!-- Tooltip strings -->
+	<system:String x:Key="FormatsTT">Wybierz rozszerzenia plików. UWAGA: docx i odt nie są jeszcze obsługiwane.</system:String>
+	<system:String x:Key="SubfoldersTT">Wybierz jeśli chcesz szukać również w podfolderach.</system:String>
+	<system:String x:Key="CaseSensitiveTT">Wybierz jeśli chcesz rozróżniać wielkie i małe litery.</system:String>
+	<system:String x:Key="OcrTT">Wybierz Optyczne Rozpoznawanie Znaków (OCR) jeśli chcesz szukać w obrazach.</system:String>
+	<system:String x:Key="LanguageTT">Sprecyzuj język słowa do wyszukania. Ta opcja pozwala na poprawę wyników uzyskiwanych przez OCR. Zostaw domyślne w razie niepewności.</system:String>
+	<system:String x:Key="PrecisionTT">Wybierz precyzję silnika OCR. Lepsza precyzja może pogorszyć czas szukania.</system:String>
+	<system:String x:Key="KeywordEmptyTT">Słowo kluczowe nie może być puste!</system:String>
+	<system:String x:Key="PathErrorTT">Wybrany folder nie istnieje!</system:String>
+
+	<!-- Watermarks strings -->
+	<system:String x:Key="KeywordW">Słowo albo wyrażenie do wyszukania</system:String>
+	<system:String x:Key="PathW">Folder do przeszukania</system:String>
+
+	<!-- Options strings -->
+	<system:String x:Key="Formats">Formaty</system:String>
+	<system:String x:Key="CaseSensitive">Rozróżniaj wielkie i małe litery</system:String>
+	<system:String x:Key="Subfolders">Szukaj w podfolderach</system:String>
+	<system:String x:Key="OCR">Szukaj w obrazach (OCR)</system:String>
+	<system:String x:Key="RecognitionLanguage">Język rozpoznawania</system:String>
+	<system:String x:Key="RecognitionPrecision">Precyzja rozpoznawania</system:String>
+	<system:String x:Key="Search">SZUKAJ</system:String>
+
+	<!-- Results strings -->
+	<system:String x:Key="File">PLIK</system:String>
+	<system:String x:Key="Page">STRONA</system:String>
+	<system:String x:Key="Results">WYNIK</system:String>
+
+	<!-- Status bar strings -->
+	<system:String x:Key="StatusString">Status: </system:String>
+	<system:String x:Key="FilesAnalyzed">Przeanalizowane pliki: </system:String>
+	<system:String x:Key="PagesAnalyzed">Przeanalizowane strony: </system:String>
+	<system:String x:Key="ResultsFound">Znalezione wyniki: </system:String>
+	<system:String x:Key="ExecutionTime">Czas szukania: </system:String>
+
+	<!-- Other static strings -->
+	<system:String x:Key="SelectFolder">Wybierz folder</system:String>
+
+</ResourceDictionary>
