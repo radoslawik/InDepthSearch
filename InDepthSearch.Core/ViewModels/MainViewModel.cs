@@ -54,8 +54,6 @@ namespace InDepthSearch.Core.ViewModels
         [Reactive]
         public bool ItemsReady { get; set; }
         [Reactive]
-        public SearchStatus AppStatus { get; set; }
-        [Reactive]
         public string StatusName { get; set; }
 
         private Thread? _th;
@@ -76,11 +74,10 @@ namespace InDepthSearch.Core.ViewModels
                 false, true, false, true, false, false);
             Results = new ObservableCollection<QueryResult>();
             Stats = new ResultStats("0/0", true, 0, "0");
-            AppStatus = SearchStatus.Ready;
             StatusName = SearchStatus.Ready.ToString();
             ResultInfo = "Click search button to start";
             CurrentThemeName = Theme.Default.ToString().ToUpper();
-            CurrentLanguageName = Language.English.ToString().ToUpper();
+            CurrentLanguageName = AppLanguage.English.ToString().ToUpper();
             ItemsReady = false;
 
             // Subscribe for events and set validation rules
@@ -128,9 +125,8 @@ namespace InDepthSearch.Core.ViewModels
                 false, true, false, true, false, false);
             Results = new ObservableCollection<QueryResult>();
             Stats = new ResultStats("0/0", true, 0, "0");
-            ResultInfo = "Click search button to start";
-            AppStatus = SearchStatus.Ready;
-            StatusName = infoService.GetSearchStatus(AppStatus);
+            ResultInfo = infoService.GetSearchInfo(SearchInfo.Init);
+            StatusName = infoService.GetSearchStatus(SearchStatus.Ready);
             CurrentThemeName = themeService.GetCurrentThemeName();
             CurrentLanguageName = infoService.GetCurrentLanguage();
             ItemsReady = false;
@@ -148,7 +144,8 @@ namespace InDepthSearch.Core.ViewModels
         private void UpdateStringResources()
         {
             CurrentThemeName = _themeService.GetCurrentThemeName();
-            StatusName =  _infoService.GetSearchStatus(AppStatus);
+            StatusName =  _infoService.GetSearchStatus();
+            ResultInfo = _infoService.GetSearchInfo();
         }
 
         private void OnValidationErrorsChanged(object? sender, System.ComponentModel.DataErrorsChangedEventArgs e)
@@ -162,13 +159,12 @@ namespace InDepthSearch.Core.ViewModels
             var searchOptions = Options;
 
             Results.Clear();
-            AppStatus = SearchStatus.Initializing;
-            StatusName = _infoService.GetSearchStatus(AppStatus);
+            StatusName = _infoService.GetSearchStatus(SearchStatus.Initializing);
             ItemsReady = false;
             Stats.IsReady = false;           
             Stats.FilesAnalyzed = "0/0";
             Stats.PagesAnalyzed = 0;
-            Stats.ExecutionTime = "Waiting to finish";
+            Stats.ExecutionTime = "...";
 
             var fileCounter = 0;
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -184,9 +180,8 @@ namespace InDepthSearch.Core.ViewModels
                     return;
                 }
 
-                AppStatus = SearchStatus.Running;
-                StatusName = _infoService.GetSearchStatus(AppStatus);
-                ResultInfo = "Searching...";
+                StatusName = _infoService.GetSearchStatus(SearchStatus.Running);
+                ResultInfo = _infoService.GetSearchInfo(SearchInfo.Init);
                 Stats.FilesAnalyzed = "0/" + discoveredFiles.Count.ToString();
 
                 foreach (var pdf in discoveredFiles)
@@ -225,13 +220,12 @@ namespace InDepthSearch.Core.ViewModels
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             System.Diagnostics.Debug.WriteLine("Total execution " + elapsedMs);
-            Stats.ExecutionTime = (elapsedMs / 1000.0).ToString() + " seconds";
+            Stats.ExecutionTime = (elapsedMs / 1000.0).ToString() + " " + _infoService.GetSecondsString();
             Stats.IsReady = true;
-            AppStatus = SearchStatus.Ready;
-            StatusName = _infoService.GetSearchStatus(AppStatus);
+            StatusName = _infoService.GetSearchStatus(SearchStatus.Ready);
             if (!Results.Any())
             {
-                ResultInfo = "No results found";
+                ResultInfo = _infoService.GetSearchInfo(SearchInfo.NoResults);
                 ItemsReady = false;
             }
         }

@@ -14,8 +14,10 @@ namespace InDepthSearch.Core.Services
     {
         private readonly List<ResourceInclude> _languages;
         private int currentLanguage;
+        private SearchStatus status;
+        private SearchInfo info;
 
-        public AppService(Language lang)
+        public AppService(AppLanguage lang)
         {
             _languages = new List<ResourceInclude>()
             {
@@ -25,6 +27,9 @@ namespace InDepthSearch.Core.Services
             };
    
             currentLanguage = (int)lang;
+            status = SearchStatus.Ready;
+            info = SearchInfo.Init;
+            
         }
 
         public string GetVersion()
@@ -44,11 +49,14 @@ namespace InDepthSearch.Core.Services
 
         public string GetCurrentLanguage()
         {
-            return ((Language)currentLanguage).ToString().ToUpper();
+            return ((AppLanguage)currentLanguage).ToString().ToUpper();
         }
 
-        public string GetSearchStatus(SearchStatus ss)
+        public string GetSearchStatus(SearchStatus ss = SearchStatus.Unknown)
         {
+            if (ss == SearchStatus.Unknown) ss = status;
+            else status = ss;
+
             return ss switch
             {
                 SearchStatus.Ready => (string?)Avalonia.Application.Current.FindResource("StatusReady") ?? ss.ToString().ToUpper(),
@@ -56,6 +64,25 @@ namespace InDepthSearch.Core.Services
                 SearchStatus.Running => (string?)Avalonia.Application.Current.FindResource("StatusRunning") ?? ss.ToString().ToUpper(),
                 _ => ss.ToString().ToUpper()
             };
+        }
+
+        public string GetSearchInfo(SearchInfo si = SearchInfo.Unknown)
+        {
+            if (si == SearchInfo.Unknown) si = info;
+            else info = si;
+
+            return si switch
+            {
+                SearchInfo.Init => (string?)Avalonia.Application.Current.FindResource("InfoInit") ?? si.ToString(),
+                SearchInfo.Run => (string?)Avalonia.Application.Current.FindResource("InfoRun") ?? si.ToString(),
+                SearchInfo.NoResults => (string?)Avalonia.Application.Current.FindResource("InfoNoResults") ?? si.ToString(),
+                _ => si.ToString()
+            };
+        }
+
+        public string GetSecondsString()
+        {
+            return (string?)Avalonia.Application.Current.FindResource("TimeSeconds") ?? "seconds";
         }
 
     }

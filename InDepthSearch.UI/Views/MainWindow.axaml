@@ -52,12 +52,12 @@
 				<Image Grid.Row="0" Source="{Binding Logo, Converter={StaticResource imConverter}}" />
 				<Grid Grid.Row="1" VerticalAlignment="Center">
 						<DrawingPresenter MaxWidth="16" MaxHeight="16" IsVisible="{Binding KeywordErrorVisible}" ZIndex="99"
-										  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Keyword cannot be empty!">
+										  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="{DynamicResource KeywordEmptyTT}">
 							<DrawingPresenter.Drawing>
 								<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}" />
 							</DrawingPresenter.Drawing>
 						</DrawingPresenter>
-						<TextBox Text="{Binding Options.Keyword}" Watermark="Word or phrase to find"
+						<TextBox Text="{Binding Options.Keyword}" Watermark="{DynamicResource KeywordW}"
 								 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
 					</Grid>		
 				<Grid Grid.Row="2" VerticalAlignment="Center">
@@ -68,12 +68,12 @@
 
 						<Grid Grid.Column="0" Margin="0 0 10 0">							
 							<DrawingPresenter MaxWidth="16" MaxHeight="16"  IsVisible="{Binding PathErrorVisible}" ZIndex="99"
-											  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="Path does not exist!">
+											  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="{DynamicResource PathErrorTT}">
 								<DrawingPresenter.Drawing>
 									<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}"/>
 								</DrawingPresenter.Drawing>
 							</DrawingPresenter>
-							<TextBox Text="{Binding Options.Path}" Watermark="Folder to search"
+							<TextBox Text="{Binding Options.Path}" Watermark="{DynamicResource PathW}"
 									 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="WrapWithOverflow" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 						</Grid>
 						<Grid Name="DirectoryButton" Grid.Column="1">
@@ -89,7 +89,7 @@
 					</Grid>
 				<StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center"
 							ToolTip.Tip="{DynamicResource FormatsTT}" Background="Transparent">
-					<TextBlock Text="Formats" FontSize="12" />
+					<TextBlock Text="{DynamicResource Formats}" FontSize="12" />
 					<UniformGrid Columns="3">
 						<CheckBox Grid.Column="0" Content="pdf" IsChecked="{Binding Options.UsePDF}"/>
 						<CheckBox Grid.Column="1" Content="docx" IsChecked="{Binding Options.UseDOCX}" IsEnabled="False"/>
@@ -98,26 +98,26 @@
 				</StackPanel>
 				
 				<StackPanel Grid.Row="4" Orientation="Vertical" VerticalAlignment="Center">
-					<ToggleSwitch ToolTip.Tip="{DynamicResource CaseSensitiveTT}" OnContent="Case-sensitive" OffContent="Case-sensitive"
+					<ToggleSwitch ToolTip.Tip="{DynamicResource CaseSensitiveTT}" OnContent="{DynamicResource CaseSensitive}" OffContent="{DynamicResource CaseSensitive}"
 								  IsChecked="{Binding Options.CaseSensitive}" />
-					<ToggleSwitch ToolTip.Tip="{DynamicResource SubfoldersTT}" OnContent="Search in subfolders" OffContent="Search in subfolders"
+					<ToggleSwitch ToolTip.Tip="{DynamicResource SubfoldersTT}" OnContent="{DynamicResource Subfolders}" OffContent="{DynamicResource Subfolders}"
 								  IsChecked="{Binding Options.UseSubfolders}" />
-					<ToggleSwitch ToolTip.Tip="{DynamicResource OcrTT}" OnContent="Use image OCR" OffContent="Use image OCR"
+					<ToggleSwitch ToolTip.Tip="{DynamicResource OcrTT}" OnContent="{DynamicResource OCR}" OffContent="{DynamicResource OCR}"
 								  IsChecked="{Binding Options.UseOCR}" />
 				</StackPanel>				
 				<UniformGrid Grid.Row="5" Columns="2" VerticalAlignment="Center">
 						<StackPanel Name="LanguageGrid" Grid.Column="0" Margin="2 0" ToolTip.Tip="{DynamicResource LanguageTT}">
-							<TextBlock Text="Language" FontSize="12"/>
+							<TextBlock Text="{DynamicResource RecognitionLanguage}" FontSize="12"/>
 							<ComboBox Items="{Binding LanguageOCR}" SelectedItem="{Binding Options.SelectedLanguageOCR}"
 									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #LanguageGrid.Bounds.Width}"/>
 						</StackPanel>
 						<StackPanel Grid.Column="1" Name="PrecisionGrid" Margin="2 0" ToolTip.Tip="{DynamicResource PrecisionTT}">
-							<TextBlock Text="Precision" FontSize="12"/>
+							<TextBlock Text="{DynamicResource RecognitionPrecision}" FontSize="12"/>
 							<ComboBox Items="{Binding PrecisionOCR}" SelectedItem="{Binding Options.SelectedPrecisionOCR}"
 									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #PrecisionGrid.Bounds.Width}"/>
 						</StackPanel>
 					</UniformGrid>
-				<Button Grid.Row="6" Command="{Binding ReadPDF}" IsEnabled="{Binding Stats.IsReady}" VerticalAlignment="Center" Content="Search" Width="100"/>
+				<Button Grid.Row="6" Command="{Binding ReadPDF}" IsEnabled="{Binding Stats.IsReady}" VerticalAlignment="Center" Content="{DynamicResource Search}" Width="100"/>
 			</Grid>		
 		</Border>
 			<Grid Grid.Column="1" Grid.Row="0" Margin="15">
@@ -132,9 +132,9 @@
 										<ColumnDefinition Width="*"/>
 										<ColumnDefinition Width="7*"/>
 									</Grid.ColumnDefinitions>
-									<Label Classes="ResultHeading" Grid.Column="0">FILE</Label>
-									<Label Classes="ResultHeading" Grid.Column="1">PAGE</Label>
-									<Label Classes="ResultHeading" Grid.Column="2" Margin="5 0">RESULTS</Label>
+									<Label Classes="ResultHeading" Grid.Column="0" Content="{DynamicResource File}"/>
+									<Label Classes="ResultHeading" Grid.Column="1" Content="{DynamicResource Page}"/>
+									<Label Classes="ResultHeading" Grid.Column="2" Margin="5 0" Content="{DynamicResource Results}"/>
 								</Grid>
 								<ScrollViewer>
 									<ItemsPresenter></ItemsPresenter>
@@ -170,15 +170,15 @@
 	</Grid>
 		<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
-				<TextBlock Classes="Caption" Text="Status: " FontWeight="DemiBold" Margin="10 0 0 0"/>
+				<TextBlock Classes="Caption" Text="{DynamicResource StatusString}" FontWeight="DemiBold" Margin="10 0 4 0"/>
 				<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold" />
-				<TextBlock Classes="Caption" Text="Files analyzed: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{DynamicResource FilesAnalyzed}" Margin="10 0 4 0" />
 				<TextBlock Classes="Caption" Text="{Binding Stats.FilesAnalyzed}" />
-				<TextBlock Classes="Caption" Text="Pages analyzed: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{DynamicResource PagesAnalyzed}" Margin="10 0 4 0" />
 				<TextBlock Classes="Caption" Text="{Binding Stats.PagesAnalyzed}" />
-				<TextBlock Classes="Caption" Text="Results found: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{DynamicResource ResultsFound}" Margin="10 0 4 0" />
 				<TextBlock Classes="Caption" Text="{Binding Results.Count}" />
-				<TextBlock Classes="Caption" Text="Execution time: " Margin="10 0 0 0" />
+				<TextBlock Classes="Caption" Text="{DynamicResource ExecutionTime}" Margin="10 0 4 0" />
 				<TextBlock Classes="Caption" Text="{Binding Stats.ExecutionTime}" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" 

@@ -11,7 +11,9 @@ namespace InDepthSearch.Core.Services.Interfaces
     {
         public string GetVersion();
         public string GetCurrentLanguage();
-        public string GetSearchStatus(SearchStatus ss);
+        public string GetSearchStatus(SearchStatus ss = SearchStatus.Unknown);
+        public string GetSearchInfo(SearchInfo si = SearchInfo.Unknown);
+        public string GetSecondsString();
         public void ChangeLanguage();
     }
 }

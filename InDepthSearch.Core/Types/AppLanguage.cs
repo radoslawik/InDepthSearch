@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace InDepthSearch.Core.Types
 {
-    public enum SearchStatus : int
+    public enum AppLanguage: int
     {
-        Unknown,
-        Ready,
-        Initializing,
-        Running,
+        English,
+        Polski,
+        Francais
     }
 }

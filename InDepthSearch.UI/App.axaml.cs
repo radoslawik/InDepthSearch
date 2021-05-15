@@ -22,7 +22,7 @@ namespace InDepthSearch.UI
                 desktop.MainWindow = new MainWindow
                 {
                     DataContext = new MainViewModel(new OptionService(), new DirectoryService(),
-                    new AppService(Language.English), new ThemeService(Theme.Light))
+                    new AppService(AppLanguage.English), new ThemeService(Theme.Light))
                 };
             }
 
