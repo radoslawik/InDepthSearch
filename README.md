@@ -1,9 +1,11 @@
-<img src="https://raw.githubusercontent.com/radoslawik/InDepthSearch/master/InDepthSearch.UI/Assets/ids-icon.ico" width="200">
-
 # InDepthSearch
+![version](https://img.shields.io/badge/version-0.2.0-blue)
+
 Search for keywords inside the documents on Windows, Linux and macOS!
 
-![image](https://user-images.githubusercontent.com/55437425/115236262-6ffd6b00-a11b-11eb-8ca5-43a1542e05c5.png)
+![image](https://user-images.githubusercontent.com/55437425/118365572-9806af80-b59d-11eb-92c0-655f7824742c.png)
+![image](https://user-images.githubusercontent.com/55437425/118365601-b8366e80-b59d-11eb-9932-c2ceacc82a21.png)
+
 
 ## 📖 About
 InDepthSearch is a multi-platform desktop search engine to find the keywords inside the documents content, in both text and images. Currently supported platforms:
@@ -33,9 +35,7 @@ The table below lists the features and their compatibility with the supported pl
 <sup>**</sup>  Optical Character Recognition (OCR) libraries are compatible only with Windows, therefore search in images is disabled on Linux and macOS for the moment.
 
 ## 🚀 Quick start!
-~~If you just want to run the application follow the instructions below. If you want to build the project first, go to to **Build & run** section.~~
-
-**NOTE:** Quick start will be available starting with `0.2.0` version.
+If you just want to run the application follow the instructions below. If you want to build the project first, go to to **Build & run** section.
 
 **Quick start** steps:
  - Make sure you have [**.NET Core 5.0 runtime**](https://dotnet.microsoft.com/download/dotnet/5.0/runtime "**.NET Core 5.0 runtime**") installed
