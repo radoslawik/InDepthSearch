@@ -1,22 +1,17 @@
-## [0.3.0] - 02/04/2021
+## [0.2.0] - 15/05/2021
  
 ### Added
- - Match case search option
- - Initial icon for Windows
+ - Support for new languages (french and polish)
+ - Brand new dark theme
+ - Runtime theme and language change
  
 ### Changed
- - Improvements for input validation warnings
- - Better full screen experience
-
-## [0.2.0] - 15/03/2021
+ - Revamp of the user interface colors and styles
  
-### Added
- - Input validation for keyword and path settings
- 
-### Changed
- - Settings are now locked during execution
+### Fixed
+ - Results display bug when first entry was not listed
 
-## [0.1.0] - 09/03/2021
+## [0.1.0] - 16/04/2021
  
 ### Added
  - Initial version of PDF search engine with OCR features
