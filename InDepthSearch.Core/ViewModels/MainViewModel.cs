@@ -14,13 +14,12 @@ using System.Collections.ObjectModel;
 using InDepthSearch.Core.Models;
 using InDepthSearch.Core.Types;
 using System.Threading;
-using ReactiveUI.Validation.Helpers;
-using ReactiveUI.Validation.Extensions;
 using InDepthSearch.Core.Services.Interfaces;
+using DocumentFormat.OpenXml.Packaging;
 
 namespace InDepthSearch.Core.ViewModels
 {
-    public class MainViewModel : ReactiveValidationObject
+    public class MainViewModel : ReactiveObject
     {
         public string Logo => "avares://InDepthSearch.UI/Assets/Images/ids-logo.png";
 
@@ -41,10 +40,10 @@ namespace InDepthSearch.Core.ViewModels
 
         [Reactive]
         public string ResultInfo { get; set; }
-        [Reactive]
-        public bool KeywordErrorVisible { get; set; }
-        [Reactive]
-        public bool PathErrorVisible { get; set; }
+        public bool KeywordErrorVisible => string.IsNullOrWhiteSpace(Options.Keyword);
+        public bool PathErrorVisible => !Directory.Exists(Options.Path);
+        public bool FormatsErrorVisible => !(Options.UseDOC || Options.UseDOCX || Options.UseODT || Options.UsePDF);
+        public bool CanExecute => !KeywordErrorVisible && !PathErrorVisible && !FormatsErrorVisible;
         [Reactive]
         public string AppVersion { get; set; }
         [Reactive]
@@ -55,6 +54,7 @@ namespace InDepthSearch.Core.ViewModels
         public bool ItemsReady { get; set; }
         [Reactive]
         public string StatusName { get; set; }
+
 
         private Thread? _th;
         private readonly IDocLib _docLib;
@@ -71,22 +71,19 @@ namespace InDepthSearch.Core.ViewModels
             PrecisionOCR = new ObservableCollection<RecognitionPrecision>(Enum.GetValues(typeof(RecognitionPrecision)).Cast<RecognitionPrecision>());
             LanguageOCR = new ObservableCollection<RecognitionLanguage>(Enum.GetValues(typeof(RecognitionLanguage)).Cast<RecognitionLanguage>());
             Options = new SearchOptions("", "", PrecisionOCR.FirstOrDefault(), LanguageOCR.FirstOrDefault(),
-                false, true, false, true, false, false);
+                false, true, false, true, false, false, false);
             Results = new ObservableCollection<QueryResult>();
-            Stats = new ResultStats("0/0", true, 0, "0");
+            Stats = new ResultStats("0/0", 0, "0");
             StatusName = SearchStatus.Ready.ToString();
             ResultInfo = "Click search button to start";
             CurrentThemeName = Theme.Default.ToString().ToUpper();
             CurrentLanguageName = AppLanguage.English.ToString().ToUpper();
             ItemsReady = false;
-
-            // Subscribe for events and set validation rules
-            ErrorsChanged += OnValidationErrorsChanged;
-            this.ValidationRule(x => x.Options.Keyword, key => !string.IsNullOrEmpty(key), "Keyword cannot be empty!");
-            this.ValidationRule(x => x.Options.Path, key => !string.IsNullOrEmpty(key) && Directory.Exists(key), "Path has to be valid!");
+            this.WhenAnyValue(x => x.Options.Keyword, x => x.Options.Path).Subscribe(x => ValidateSelection());
 
             AppVersion = "x.x.x";
         }
+
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         #endregion
         public MainViewModel(IOptionService optionService, IDirectoryService directoryService, 
@@ -105,7 +102,7 @@ namespace InDepthSearch.Core.ViewModels
                 _th = new Thread(() => StartReading());
                 _th.IsBackground = true;
                 _th.Start();
-            }, this.IsValid());
+            });
             ChangeTheme = ReactiveCommand.Create(() =>
             {
                 themeService.ChangeTheme();
@@ -122,23 +119,29 @@ namespace InDepthSearch.Core.ViewModels
             PrecisionOCR = new ObservableCollection<RecognitionPrecision>(Enum.GetValues(typeof(RecognitionPrecision)).Cast<RecognitionPrecision>());
             LanguageOCR = new ObservableCollection<RecognitionLanguage>(Enum.GetValues(typeof(RecognitionLanguage)).Cast<RecognitionLanguage>());
             Options = new SearchOptions("", "", PrecisionOCR.FirstOrDefault(), LanguageOCR.FirstOrDefault(), 
-                false, true, false, true, false, false);
+                false, true, false, true, false, false, false);
             Results = new ObservableCollection<QueryResult>();
-            Stats = new ResultStats("0/0", true, 0, "0");
+            Stats = new ResultStats("0/0", 0, "0");
             ResultInfo = infoService.GetSearchInfo(SearchInfo.Init);
             StatusName = infoService.GetSearchStatus(SearchStatus.Ready);
             CurrentThemeName = themeService.GetCurrentThemeName();
             CurrentLanguageName = infoService.GetCurrentLanguage();
             ItemsReady = false;
 
-            // Subscribe for events and set validation rules
-            ErrorsChanged += OnValidationErrorsChanged;
-            this.ValidationRule(x => x.Options.Keyword, key => !string.IsNullOrEmpty(key), "Keyword cannot be empty!");
-            this.ValidationRule(x => x.Options.Path, key => !string.IsNullOrEmpty(key) && Directory.Exists(key), "Path has to be valid!");
+            // Subscribe to validation values
+            this.WhenAnyValue(x => x.Options.Keyword, x => x.Options.Path, x => x.Options.UseDOC, x => x.Options.UseDOCX,
+                x => x.Options.UsePDF, x => x.Options.UseODT).Subscribe(x => ValidateSelection());
 
             // Get assembly version
             AppVersion = infoService.GetVersion();
+        }
 
+        private void ValidateSelection()
+        {
+            this.RaisePropertyChanged(nameof(PathErrorVisible));
+            this.RaisePropertyChanged(nameof(KeywordErrorVisible));
+            this.RaisePropertyChanged(nameof(FormatsErrorVisible));
+            this.RaisePropertyChanged(nameof(CanExecute));
         }
 
         private void UpdateStringResources()
@@ -148,20 +151,13 @@ namespace InDepthSearch.Core.ViewModels
             ResultInfo = _infoService.GetSearchInfo();
         }
 
-        private void OnValidationErrorsChanged(object? sender, System.ComponentModel.DataErrorsChangedEventArgs e)
-        {
-            KeywordErrorVisible = string.IsNullOrWhiteSpace(Options.Keyword);
-            PathErrorVisible = !Directory.Exists(Options.Path);
-        }
-
         void StartReading()
         {
             var searchOptions = Options;
 
             Results.Clear();
             StatusName = _infoService.GetSearchStatus(SearchStatus.Initializing);
-            ItemsReady = false;
-            Stats.IsReady = false;           
+            ItemsReady = false;        
             Stats.FilesAnalyzed = "0/0";
             Stats.PagesAnalyzed = 0;
             Stats.ExecutionTime = "...";
@@ -171,8 +167,22 @@ namespace InDepthSearch.Core.ViewModels
 
             if (!string.IsNullOrWhiteSpace(searchOptions.Keyword))
             {
-                List<string> discoveredFiles = searchOptions.UseSubfolders ? Directory.GetFiles(searchOptions.Path, "*.pdf", SearchOption.AllDirectories).ToList()
-                : Directory.GetFiles(searchOptions.Path, "*.pdf").ToList();
+                var allowedExtensions = new List<string>();
+
+                if (searchOptions.UsePDF)
+                    allowedExtensions.Add(".pdf");
+                if (searchOptions.UseDOCX)
+                    allowedExtensions.Add(".docx");
+                if (searchOptions.UseDOC)
+                    allowedExtensions.Add(".doc");
+                if (searchOptions.UseODT)
+                    allowedExtensions.Add(".odt");
+
+                List<string> discoveredFiles = searchOptions.UseSubfolders ? 
+                    Directory.GetFiles(searchOptions.Path, "*.*", SearchOption.AllDirectories)
+                        .Where(file => allowedExtensions.Any(file.ToLower().EndsWith)).ToList() : 
+                    Directory.GetFiles(searchOptions.Path)
+                        .Where(file => allowedExtensions.Any(file.ToLower().EndsWith)).ToList();
 
                 if (discoveredFiles == null)
                 {
@@ -184,34 +194,52 @@ namespace InDepthSearch.Core.ViewModels
                 ResultInfo = _infoService.GetSearchInfo(SearchInfo.Init);
                 Stats.FilesAnalyzed = "0/" + discoveredFiles.Count.ToString();
 
-                foreach (var pdf in discoveredFiles)
+                foreach (var file in discoveredFiles)
                 {
-                    System.Diagnostics.Debug.WriteLine("Checking " + pdf);
-                    using var docReader = _docLib.GetDocReader(pdf, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item1);
+                    System.Diagnostics.Debug.WriteLine("Checking " + file);
 
-                    for (var i = 0; i < docReader.GetPageCount(); i++)
+                    if(file.EndsWith(".pdf"))
                     {
-                        using var pageReader = docReader.GetPageReader(i);
-                        var parsedText = pageReader.GetText().ToString();
+                        using var docReader = _docLib.GetDocReader(file, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item1);
 
-                        if (searchOptions.UseOCR && string.IsNullOrWhiteSpace(parsedText))
+                        for (var i = 0; i < docReader.GetPageCount(); i++)
                         {
-                            var rawBytes = pageReader.GetImage(_optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item2);
-                            var width = pageReader.GetPageWidth();
-                            var height = pageReader.GetPageHeight();
-                            using var bmp = new Bitmap(width, height, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item3);
+                            using var pageReader = docReader.GetPageReader(i);
+                            var parsedText = pageReader.GetText().ToString();
 
-                            AddBytes(bmp, rawBytes);
-                            using var stream = new MemoryStream();
-                            bmp.Save(stream, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item4);
+                            if (searchOptions.UseOCR && string.IsNullOrWhiteSpace(parsedText))
+                            {
+                                var rawBytes = pageReader.GetImage(_optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item2);
+                                var width = pageReader.GetPageWidth();
+                                var height = pageReader.GetPageHeight();
+                                using var bmp = new Bitmap(width, height, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item3);
 
-                            parsedText = ImageToText(stream.ToArray(), searchOptions.SelectedLanguageOCR, searchOptions.SelectedPrecisionOCR);
+                                AddBytes(bmp, rawBytes);
+                                using var stream = new MemoryStream();
+                                bmp.Save(stream, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item4);
+
+                                parsedText = ImageToText(stream.ToArray(), searchOptions.SelectedLanguageOCR, searchOptions.SelectedPrecisionOCR);
+                            }
+
+                            SearchPage(parsedText, searchOptions.Keyword, file, i, searchOptions.CaseSensitive);
+                            Stats.PagesAnalyzed += 1;
+
                         }
-
-                        SearchPage(parsedText, searchOptions.Keyword, pdf, i, searchOptions.CaseSensitive);
-                        Stats.PagesAnalyzed += 1;
-
                     }
+                    else if(file.EndsWith(".docx") || file.EndsWith(".doc"))
+                    {
+                        using WordprocessingDocument wordDocument = WordprocessingDocument.Open(file, false);
+                        var paragraphs = wordDocument.MainDocumentPart?.Document?.Body?.ChildElements;
+                        var parsedString = "";
+                        if(paragraphs!=null)
+                        {
+                            foreach (var paragraph in paragraphs)
+                                parsedString = parsedString + paragraph.InnerText + "\r";
+
+                            SearchPage(parsedString, searchOptions.Keyword, file, 0, searchOptions.CaseSensitive);
+                        }
+                    }
+                    
                     fileCounter += 1;
                     Stats.FilesAnalyzed = fileCounter.ToString() + "/" + discoveredFiles.Count.ToString();
                 }
@@ -221,7 +249,6 @@ namespace InDepthSearch.Core.ViewModels
             var elapsedMs = watch.ElapsedMilliseconds;
             System.Diagnostics.Debug.WriteLine("Total execution " + elapsedMs);
             Stats.ExecutionTime = (elapsedMs / 1000.0).ToString() + " " + _infoService.GetSecondsString();
-            Stats.IsReady = true;
             StatusName = _infoService.GetSearchStatus(SearchStatus.Ready);
             if (!Results.Any())
             {

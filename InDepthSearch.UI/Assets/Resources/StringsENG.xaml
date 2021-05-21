@@ -38,6 +38,7 @@
     <system:String x:Key="PrecisionTT">Choose precision of OCR engine. Setting better precision may cause the search to take more time.</system:String>
     <system:String x:Key="KeywordEmptyTT">Keyword cannot be empty!</system:String>
     <system:String x:Key="PathErrorTT">Path doesn't exist!</system:String>
+	<system:String x:Key="FormatsErrorTT">Choose at least one format!</system:String>
 
     <!-- Watermarks strings -->
     <system:String x:Key="KeywordW">Word or phrase to find</system:String>
