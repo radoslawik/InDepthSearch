@@ -198,47 +198,10 @@ namespace InDepthSearch.Core.ViewModels
                 {
                     System.Diagnostics.Debug.WriteLine("Checking " + file);
 
-                    if(file.EndsWith(".pdf"))
-                    {
-                        using var docReader = _docLib.GetDocReader(file, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item1);
-
-                        for (var i = 0; i < docReader.GetPageCount(); i++)
-                        {
-                            using var pageReader = docReader.GetPageReader(i);
-                            var parsedText = pageReader.GetText().ToString();
-
-                            if (searchOptions.UseOCR && string.IsNullOrWhiteSpace(parsedText))
-                            {
-                                var rawBytes = pageReader.GetImage(_optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item2);
-                                var width = pageReader.GetPageWidth();
-                                var height = pageReader.GetPageHeight();
-                                using var bmp = new Bitmap(width, height, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item3);
-
-                                AddBytes(bmp, rawBytes);
-                                using var stream = new MemoryStream();
-                                bmp.Save(stream, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item4);
-
-                                parsedText = ImageToText(stream.ToArray(), searchOptions.SelectedLanguageOCR, searchOptions.SelectedPrecisionOCR);
-                            }
-
-                            SearchPage(parsedText, searchOptions.Keyword, file, i, searchOptions.CaseSensitive);
-                            Stats.PagesAnalyzed += 1;
-
-                        }
-                    }
-                    else if(file.EndsWith(".docx") || file.EndsWith(".doc"))
-                    {
-                        using WordprocessingDocument wordDocument = WordprocessingDocument.Open(file, false);
-                        var paragraphs = wordDocument.MainDocumentPart?.Document?.Body?.ChildElements;
-                        var parsedString = "";
-                        if(paragraphs!=null)
-                        {
-                            foreach (var paragraph in paragraphs)
-                                parsedString = parsedString + paragraph.InnerText + "\r";
-
-                            SearchPage(parsedString, searchOptions.Keyword, file, 0, searchOptions.CaseSensitive);
-                        }
-                    }
+                    if (file.EndsWith(".pdf"))
+                        HandlePDF(file, searchOptions);
+                    else if (file.EndsWith(".docx") || file.EndsWith(".doc"))
+                        HandleDOCX(file, searchOptions);
                     
                     fileCounter += 1;
                     Stats.FilesAnalyzed = fileCounter.ToString() + "/" + discoveredFiles.Count.ToString();
@@ -319,6 +282,61 @@ namespace InDepthSearch.Core.ViewModels
             var newDir = await _directoryService.ChooseDirectory();
             if (!string.IsNullOrEmpty(newDir))
                 Options.Path = newDir;
+        }
+
+        private void HandlePDF(string file, SearchOptions searchOptions)
+        {
+            using var docReader = _docLib.GetDocReader(file, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item1);
+
+            for (var i = 0; i < docReader.GetPageCount(); i++)
+            {
+                using var pageReader = docReader.GetPageReader(i);
+                var parsedText = pageReader.GetText().ToString();
+
+                if (searchOptions.UseOCR && string.IsNullOrWhiteSpace(parsedText))
+                {
+                    var rawBytes = pageReader.GetImage(_optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item2);
+                    var width = pageReader.GetPageWidth();
+                    var height = pageReader.GetPageHeight();
+                    using var bmp = new Bitmap(width, height, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item3);
+
+                    AddBytes(bmp, rawBytes);
+                    using var stream = new MemoryStream();
+                    bmp.Save(stream, _optionService.TranslatePrecision(searchOptions.SelectedPrecisionOCR).Item4);
+
+                    parsedText = ImageToText(stream.ToArray(), searchOptions.SelectedLanguageOCR, searchOptions.SelectedPrecisionOCR);
+                }
+
+                SearchPage(parsedText, searchOptions.Keyword, file, i, searchOptions.CaseSensitive);
+                Stats.PagesAnalyzed += 1;
+            }
+        }
+
+        private void HandleDOCX(string file, SearchOptions searchOptions)
+        {
+            using WordprocessingDocument wordDocument = WordprocessingDocument.Open(file, false);
+            var paragraphs = wordDocument.MainDocumentPart?.Document?.Body?.ChildElements;
+            var images = wordDocument.MainDocumentPart?.ImageParts;
+            if (searchOptions.UseOCR && images != null)
+            {
+                foreach (var image in images)
+                {
+                    var docStream = wordDocument.Package.GetPart(image.Uri).GetStream();
+                    using var stream = new MemoryStream();
+                    docStream.CopyTo(stream);
+                    var parsedText = ImageToText(stream.ToArray(), searchOptions.SelectedLanguageOCR, searchOptions.SelectedPrecisionOCR);
+                    SearchPage(parsedText, searchOptions.Keyword, file, -1, searchOptions.CaseSensitive);
+                }
+            }
+
+            if (paragraphs != null)
+            {
+                var parsedString = "";
+                foreach (var paragraph in paragraphs)
+                    parsedString = parsedString + paragraph.InnerText + "\r";
+
+                SearchPage(parsedString, searchOptions.Keyword, file, -1, searchOptions.CaseSensitive);
+            }
         }
 
     }

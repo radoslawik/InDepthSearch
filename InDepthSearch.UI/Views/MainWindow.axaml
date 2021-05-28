@@ -180,7 +180,7 @@
 		<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
 				<TextBlock Classes="Caption" Text="{DynamicResource StatusString}" FontWeight="DemiBold" Margin="10 0 4 0"/>
-				<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold" Width="75"/>
+				<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold"/>
 				<TextBlock Classes="Caption" Text="{DynamicResource FilesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
 				<TextBlock Classes="Caption" Text="{Binding Stats.FilesAnalyzed}" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
 				<TextBlock Classes="Caption" Text="{DynamicResource PagesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
