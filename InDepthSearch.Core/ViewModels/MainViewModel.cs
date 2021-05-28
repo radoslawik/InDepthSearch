@@ -121,7 +121,7 @@ namespace InDepthSearch.Core.ViewModels
             Options = new SearchOptions("", "", PrecisionOCR.FirstOrDefault(), LanguageOCR.FirstOrDefault(), 
                 false, true, false, true, false, false, false);
             Results = new ObservableCollection<QueryResult>();
-            Stats = new ResultStats("0/0", 0, "0");
+            Stats = new ResultStats("", 0, "");
             ResultInfo = infoService.GetSearchInfo(SearchInfo.Init);
             StatusName = infoService.GetSearchStatus(SearchStatus.Ready);
             CurrentThemeName = themeService.GetCurrentThemeName();
@@ -160,7 +160,7 @@ namespace InDepthSearch.Core.ViewModels
             ItemsReady = false;        
             Stats.FilesAnalyzed = "0/0";
             Stats.PagesAnalyzed = 0;
-            Stats.ExecutionTime = "...";
+            Stats.ExecutionTime = "";
 
             var fileCounter = 0;
             var watch = System.Diagnostics.Stopwatch.StartNew();

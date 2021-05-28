@@ -19,7 +19,7 @@
 		<Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
 	<Style Selector="TextBlock.ButtonCaption">
-		<Setter Property="FontSize" Value="8" />
+		<Setter Property="FontSize" Value="9" />
 		<Setter Property="FontWeight" Value="Bold" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 	</Style>

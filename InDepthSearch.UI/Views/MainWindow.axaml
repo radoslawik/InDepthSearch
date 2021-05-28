@@ -180,21 +180,19 @@
 		<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
 				<TextBlock Classes="Caption" Text="{DynamicResource StatusString}" FontWeight="DemiBold" Margin="10 0 4 0"/>
-				<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold" />
-				<TextBlock Classes="Caption" Text="{DynamicResource FilesAnalyzed}" Margin="10 0 4 0" />
-				<TextBlock Classes="Caption" Text="{Binding Stats.FilesAnalyzed}" />
-				<TextBlock Classes="Caption" Text="{DynamicResource PagesAnalyzed}" Margin="10 0 4 0" />
-				<TextBlock Classes="Caption" Text="{Binding Stats.PagesAnalyzed}" />
-				<TextBlock Classes="Caption" Text="{DynamicResource ResultsFound}" Margin="10 0 4 0" />
-				<TextBlock Classes="Caption" Text="{Binding Results.Count}" />
-				<TextBlock Classes="Caption" Text="{DynamicResource ExecutionTime}" Margin="10 0 4 0" />
-				<TextBlock Classes="Caption" Text="{Binding Stats.ExecutionTime}" />
+				<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold" Width="75"/>
+				<TextBlock Classes="Caption" Text="{DynamicResource FilesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
+				<TextBlock Classes="Caption" Text="{Binding Stats.FilesAnalyzed}" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
+				<TextBlock Classes="Caption" Text="{DynamicResource PagesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
+				<TextBlock Classes="Caption" Text="{Binding Stats.PagesAnalyzed}" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
+				<TextBlock Classes="Caption" Text="{DynamicResource ResultsFound}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
+				<TextBlock Classes="Caption" Text="{Binding Results.Count}" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
+				<TextBlock Classes="Caption" Text="{DynamicResource ExecutionTime}" Margin="10 0 4 0" IsVisible="{Binding Stats.ExecutionTime.Length}" />
+				<TextBlock Classes="Caption" Text="{Binding Stats.ExecutionTime}" IsVisible="{Binding Stats.ExecutionTime.Length}" />
 			</StackPanel>
 			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" 
 						Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">				
-				<TextBlock Classes="CaptionSmall" Text="v" Margin="0 1"/>
-				<TextBlock Classes="CaptionSmall" Text="{Binding AppVersion}" Margin="0 1 2 1"/>
-				<Button Command="{Binding ChangeTheme}" Padding="4 1"  Margin="2 4" VerticalContentAlignment="Center">
+				<Button Command="{Binding ChangeTheme}" Padding="4 0"  Margin="2 4" VerticalContentAlignment="Center">
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Classes="ButtonCaption" Text="{Binding CurrentThemeName}" Margin="1 0"/>
 						<DrawingPresenter Width="8" Height="8" Margin="1 0">
@@ -204,7 +202,7 @@
 						</DrawingPresenter>
 					</StackPanel>
 				</Button>
-				<Button Command="{Binding ChangeLanguage}" Padding="4 1"  Margin="4" VerticalContentAlignment="Center">
+				<Button Command="{Binding ChangeLanguage}" Padding="4 0"  Margin="2 4" VerticalContentAlignment="Center">
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Classes="ButtonCaption" Text="{Binding CurrentLanguageName}" Margin="1 0"/>
 						<DrawingPresenter Width="8" Height="8" Margin="1 0">
@@ -214,6 +212,8 @@
 						</DrawingPresenter>
 					</StackPanel>
 				</Button>
+				<TextBlock Classes="CaptionSmall" Text="v" Margin="0 1"/>
+				<TextBlock Classes="CaptionSmall" Text="{Binding AppVersion}" Margin="0 1 4 1"/>
 			</StackPanel>
 		</Grid>
 	</Grid>
