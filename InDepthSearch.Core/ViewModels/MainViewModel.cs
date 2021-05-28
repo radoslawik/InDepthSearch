@@ -16,6 +16,7 @@ using InDepthSearch.Core.Types;
 using System.Threading;
 using InDepthSearch.Core.Services.Interfaces;
 using DocumentFormat.OpenXml.Packaging;
+using System.Diagnostics;
 
 namespace InDepthSearch.Core.ViewModels
 {
@@ -37,6 +38,7 @@ namespace InDepthSearch.Core.ViewModels
         public ReactiveCommand<Unit, Unit> GetDirectory { get; }
         public ReactiveCommand<Unit, Unit> ChangeTheme { get; }
         public ReactiveCommand<Unit, Unit> ChangeLanguage { get; }
+        public ReactiveCommand<Unit, Unit> OpenUrl { get; }
 
         [Reactive]
         public string ResultInfo { get; set; }
@@ -86,7 +88,7 @@ namespace InDepthSearch.Core.ViewModels
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         #endregion
-        public MainViewModel(IOptionService optionService, IDirectoryService directoryService, 
+        public MainViewModel(IOptionService optionService, IDirectoryService directoryService,
             IAppService infoService, IThemeService themeService)
         {
             // Initialize services
@@ -97,7 +99,7 @@ namespace InDepthSearch.Core.ViewModels
             _infoService = infoService;
 
             // Initialize commands
-            GetDirectory = ReactiveCommand.Create(BrowseDirectory);      
+            GetDirectory = ReactiveCommand.Create(BrowseDirectory);
             ReadPDF = ReactiveCommand.Create(() => {
                 _th = new Thread(() => StartReading());
                 _th.IsBackground = true;
@@ -113,6 +115,17 @@ namespace InDepthSearch.Core.ViewModels
                 infoService.ChangeLanguage();
                 CurrentLanguageName = infoService.GetCurrentLanguage();
                 UpdateStringResources();
+            });
+            OpenUrl = ReactiveCommand.Create(() =>
+            {
+                var url = "https://github.com/radoslawik/InDepthSearch";
+                using var process = Process.Start(new ProcessStartInfo
+                {
+                    FileName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? url : "open",
+                    Arguments = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? $"-e {url}" : "",
+                    CreateNoWindow = true,
+                    UseShellExecute = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                }); 
             });
 
             // Initialize variables
