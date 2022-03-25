@@ -1,4 +1,4 @@
-﻿using InDepthSearch.Core.Types;
+﻿using InDepthSearch.Core.Enums;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -6,19 +6,14 @@ namespace InDepthSearch.Core.Models
 {
     public class SearchOptions : ReactiveObject
     {
-        public SearchOptions(string path, string keyword, RecognitionPrecision selectedPrecisionOCR, RecognitionLanguage selectedLanguageOCR, 
-            bool caseSensitive, bool useOCR, bool useSubfolders, bool usePDF, bool useDOCX, bool useODT)
+        public SearchOptions()
         {
-            Path = path;
-            Keyword = keyword;
-            SelectedPrecisionOCR = selectedPrecisionOCR;
-            SelectedLanguageOCR = selectedLanguageOCR;
-            CaseSensitive = caseSensitive;
-            UseOCR = useOCR;
-            UseSubfolders = useSubfolders;
-            UsePDF = usePDF;
-            UseDOCX = useDOCX;
-            UseODT = useODT;
+            UseOCR = true;
+            UsePDF = true;
+            Path = "";
+            Keyword = "";
+            SelectedLanguageOCR = RecognitionLanguage.Default;
+            SelectedPrecisionOCR = RecognitionPrecision.Default;
         }
 
         [Reactive]
@@ -28,10 +23,16 @@ namespace InDepthSearch.Core.Models
         public RecognitionPrecision SelectedPrecisionOCR { get; set; }
         public RecognitionLanguage SelectedLanguageOCR { get; set; }
         public bool CaseSensitive { get; set; }
+        [Reactive]
         public bool UseOCR { get; set; }
         public bool UseSubfolders { get; set; }
+        [Reactive]
         public bool UsePDF { get; set; }
+        [Reactive]
         public bool UseDOCX { get; set; }
+        [Reactive]
         public bool UseODT { get; set; }
+        [Reactive]
+        public bool UseDOC { get; set; }
     }
 }

@@ -1,3 +1,11 @@
+## [1.0.0] - 25/03/2022
+ 
+### Added
+ - Support for docx and doc
+ 
+### Changed
+ - Improved status bar responsivity
+
 ## [0.2.0] - 15/05/2021
  
 ### Added

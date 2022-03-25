@@ -1,18 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using InDepthSearch.UI.Controls;
 
 namespace InDepthSearch.UI.Views
 {
-    public class MainWindow : FluentWindow
+    public partial class ResultsView : UserControl
     {
-        public MainWindow()
+        public ResultsView()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         private void InitializeComponent()

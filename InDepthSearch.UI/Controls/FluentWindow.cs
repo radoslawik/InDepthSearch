@@ -1,12 +1,12 @@
 ﻿using Avalonia.Styling;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Avalonia.Platform;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
+using Avalonia.Controls;
+using Avalonia;
 
-namespace Avalonia.Controls
+namespace InDepthSearch.UI.Controls
 {
     public class FluentWindow : Window, IStyleable
     {

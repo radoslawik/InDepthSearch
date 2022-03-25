@@ -1,5 +1,5 @@
 # InDepthSearch
-![version](https://img.shields.io/badge/version-0.2.0-blue)
+![version](https://img.shields.io/badge/version-1.0.0-blue)
 
 Search for keywords inside the documents on Windows, Linux and macOS!
 
@@ -13,7 +13,7 @@ InDepthSearch is a multi-platform desktop search engine to find the keywords ins
  - Linux (x64)
  - macOS (x64)
 
-**NOTE:** Currently the project is in pre-release state, some functionalities are not implemented yet and some of them work only on a specific platform.
+**NOTE:** Some functionalities are not implemented yet and some of them work only on a specific platform. For more information see the section below.
 
 ## ✔️ Features
 The table below lists the features and their compatibility with the supported platforms:
@@ -22,17 +22,17 @@ The table below lists the features and their compatibility with the supported pl
 | ------------- |:---------------:|:---------------:|:---------------:|
 | Multiple keywords search<sup>*</sup> | - | -  | - |
 | PDF support | + | + | + |
-| DOC/DOCX support<sup>**</sup> | - | - | - |
+| DOC/DOCX support<sup>**</sup> | + | + | + |
 | ODT support<sup>**</sup> | - | - | - |
 | Search in subfolders | + | + | + |
 | Case-sensitive search | + | + | + |
 | Search in images<sup>***</sup> | + | - | - |
 
-<sup>*</sup>  Currently the user is allowed to search only for one word/phrase. Support for multiple search entries is provisioned for next pre-release.
+<sup>*</sup>  Currently the user is allowed to search only for one word/phrase. Support for multiple search entries is provisioned for next release.
 
-<sup>**</sup>  Only PDF format is supported at the moment, but in the future it is planned to extend it to DOC, DOCX and ODT.
+<sup>**</sup>  ODT format is not available yet.
 
-<sup>**</sup>  Optical Character Recognition (OCR) libraries are compatible only with Windows, therefore search in images is disabled on Linux and macOS for the moment.
+<sup>***</sup>  Optical Character Recognition (OCR) libraries are compatible only with Windows, therefore search in images is disabled on Linux and macOS for the moment.
 
 ## 🚀 Quick start!
 If you just want to run the application follow the instructions below. If you want to build the project first, go to to **Build & run** section.
@@ -57,7 +57,7 @@ The code in this repository is licensed under the **Apache License 2.0**
 
 **NOTE:** The project would not exist without following resources:
 
- - [Avalonia](https://github.com/AvaloniaUI/Avalonia), [ReactiveUI](https://github.com/reactiveui/ReactiveUI), [DocNET](https://github.com/GowenGit/docnet) licensed under MIT.
+ - [Avalonia](https://github.com/AvaloniaUI/Avalonia), [ReactiveUI](https://github.com/reactiveui/ReactiveUI), [DocNET](https://github.com/GowenGit/docnet) and [Open-XML-SDK](https://github.com/OfficeDev/Open-XML-SDK) licensed under MIT.
  - [tesseract](https://github.com/charlesw/tesseract) licensed under the Apache License 2.0.
 
 

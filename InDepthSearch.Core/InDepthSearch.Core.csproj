@@ -4,15 +4,15 @@
     <OutputType>Library</OutputType>
 	<Nullable>enable</Nullable>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.2.0</Version>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.13.0" />
     <PackageReference Include="Tesseract" Version="4.1.1" />
 	<PackageReference Include="Docnet.Core" Version="2.2.0" />
-	<PackageReference Include="ReactiveUI.Fody" Version="13.1.1" />
+	<PackageReference Include="ReactiveUI.Fody" Version="13.3.2" />
 	<PackageReference Include="ReactiveUI.Validation" Version="2.1.1" />
-	<PackageReference Include="Avalonia.Desktop" Version="0.10.2" />
   </ItemGroup>
 
   <ItemGroup>

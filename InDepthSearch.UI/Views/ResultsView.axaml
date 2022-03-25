@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="InDepthSearch.UI.Views.ResultsView">
+	<Grid>
+		<TextBlock Classes="Heading" Text="{Binding ResultInfo}" IsVisible="{Binding !ResultManager.Results.Count}"/>
+		<ListBox Name="ResultView" Items="{Binding ResultManager.Results}" IsVisible="{Binding ResultManager.Results.Count}">
+			<ListBox.Template>
+				<ControlTemplate>
+					<DockPanel LastChildFill="True">
+						<Grid DockPanel.Dock="Top" Height="30" ColumnDefinitions="2*,*,7*">
+							<Label Classes="ResultHeading" Content="{DynamicResource File}"/>
+							<Label Classes="ResultHeading" Grid.Column="1" Content="{DynamicResource Page}"/>
+							<Label Classes="ResultHeading" Grid.Column="2" Margin="5 0" Content="{DynamicResource Results}"/>
+						</Grid>
+						<ScrollViewer>
+							<ItemsPresenter/>
+						</ScrollViewer>
+					</DockPanel>
+				</ControlTemplate>
+			</ListBox.Template>
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Border Background="Transparent" ToolTip.Tip="{Binding FilePath}">
+						<Grid ColumnDefinitions="2*,*,7*">
+							<TextBlock Text="{Binding FileName}" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxLines="1"/>
+							<TextBlock Grid.Column="1" Text="{Binding PageNumber}" HorizontalAlignment="Center" />
+							<DockPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0">
+								<TextBlock Classes="Result" Text="{Binding TextBefore}" />
+								<TextBlock Classes="Result" Text="{Binding TextFound}" FontWeight="Bold"/>
+								<TextBlock Classes="Result" Text="{Binding TextAfter}" TextWrapping="WrapWithOverflow" />
+							</DockPanel>
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+</UserControl>

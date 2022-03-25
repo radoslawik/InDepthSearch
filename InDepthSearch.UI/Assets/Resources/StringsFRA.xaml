@@ -37,7 +37,8 @@
 	<system:String x:Key="PrecisionTT">Choisissez la précision du moteur OCR. La définition d'une meilleure précision peut entraîner une durée de recherche plus longue.</system:String>
 	<system:String x:Key="KeywordEmptyTT">Le mot-clé ne peut pas être vide!</system:String>
 	<system:String x:Key="PathErrorTT">Le dossier n'existe pas!</system:String>
-
+	<system:String x:Key="FormatsErrorTT">Choisissez au moins un format!</system:String>
+	
 	<!-- Watermarks strings -->
 	<system:String x:Key="KeywordW">Mot ou phrase à trouver</system:String>
 	<system:String x:Key="PathW">Dossier à rechercher</system:String>

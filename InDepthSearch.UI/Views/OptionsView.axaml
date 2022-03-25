@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="InDepthSearch.UI.Views.OptionsView">
+	<Grid RowDefinitions="5*,1.3*,1.3*,*,2.5*,1.5*,1.2*">
+		<Image Grid.Row="0" Source="{Binding Logo, Converter={StaticResource imConverter}}" />
+		<Grid Grid.Row="1" VerticalAlignment="Center">
+			<DrawingPresenter MaxWidth="16" MaxHeight="16" IsVisible="{Binding KeywordErrorVisible}" ZIndex="99"
+							  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="{DynamicResource KeywordEmptyTT}">
+				<DrawingPresenter.Drawing>
+					<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}" />
+				</DrawingPresenter.Drawing>
+			</DrawingPresenter>
+			<TextBox Text="{Binding Options.Keyword}" Watermark="{DynamicResource KeywordW}"
+					 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+		</Grid>
+		<Grid Grid.Row="2" VerticalAlignment="Center" ColumnDefinitions="5*,*">
+			<Grid Grid.Column="0" Margin="0 0 10 0">
+				<DrawingPresenter MaxWidth="16" MaxHeight="16"  IsVisible="{Binding PathErrorVisible}" ZIndex="99"
+								  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="{DynamicResource PathErrorTT}">
+					<DrawingPresenter.Drawing>
+						<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}"/>
+					</DrawingPresenter.Drawing>
+				</DrawingPresenter>
+				<TextBox Text="{Binding Options.Path}" Watermark="{DynamicResource PathW}"
+						 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="WrapWithOverflow" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+			</Grid>
+			<Grid Name="DirectoryButton" Grid.Column="1">
+				<Button Command="{Binding GetDirectory}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+						VerticalAlignment="Center" Width="{Binding #DirectoryButton.Bounds.Width}">
+					<DrawingPresenter Width="20" Height="20" Margin="0 4">
+						<DrawingPresenter.Drawing>
+							<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource DirectoryIcon}"/>
+						</DrawingPresenter.Drawing>
+					</DrawingPresenter>
+				</Button>
+			</Grid>
+		</Grid>
+		<StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center" Background="Transparent">
+			<TextBlock Text="{DynamicResource Formats}" FontSize="12" />
+			<UniformGrid Columns="4">
+				<CheckBox Grid.Column="0" Content="pdf" IsChecked="{Binding Options.UsePDF, Mode=TwoWay}"/>
+				<CheckBox Grid.Column="1" Content="docx" IsChecked="{Binding Options.UseDOCX}"/>
+				<CheckBox Grid.Column="2" Content="doc" IsChecked="{Binding Options.UseDOC}"/>
+				<CheckBox Grid.Column="3" Content="odt" IsChecked="{Binding Options.UseODT}" IsEnabled="False"/>
+			</UniformGrid>
+		</StackPanel>
+
+		<StackPanel Grid.Row="4" Orientation="Vertical" VerticalAlignment="Center">
+			<ToggleSwitch ToolTip.Tip="{DynamicResource CaseSensitiveTT}" OnContent="{DynamicResource CaseSensitive}" OffContent="{DynamicResource CaseSensitive}"
+						  IsChecked="{Binding Options.CaseSensitive}" />
+			<ToggleSwitch ToolTip.Tip="{DynamicResource SubfoldersTT}" OnContent="{DynamicResource Subfolders}" OffContent="{DynamicResource Subfolders}"
+						  IsChecked="{Binding Options.UseSubfolders}" />
+			<ToggleSwitch ToolTip.Tip="{DynamicResource OcrTT}" OnContent="{DynamicResource OCR}" OffContent="{DynamicResource OCR}"
+						  IsChecked="{Binding Options.UseOCR}" />
+		</StackPanel>
+		<UniformGrid Grid.Row="5" Columns="2" VerticalAlignment="Center">
+			<StackPanel Name="LanguageGrid" Grid.Column="0" Margin="2 0" ToolTip.Tip="{DynamicResource LanguageTT}">
+				<TextBlock Text="{DynamicResource RecognitionLanguage}" FontSize="12"/>
+				<ComboBox Items="{Binding LanguageOCR}" SelectedItem="{Binding Options.SelectedLanguageOCR}"
+						  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #LanguageGrid.Bounds.Width}"/>
+			</StackPanel>
+			<StackPanel Grid.Column="1" Name="PrecisionGrid" Margin="2 0" ToolTip.Tip="{DynamicResource PrecisionTT}">
+				<TextBlock Text="{DynamicResource RecognitionPrecision}" FontSize="12"/>
+				<ComboBox Items="{Binding PrecisionOCR}" SelectedItem="{Binding Options.SelectedPrecisionOCR}"
+						  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #PrecisionGrid.Bounds.Width}"/>
+			</StackPanel>
+		</UniformGrid>
+		<Button Grid.Row="6" Command="{Binding ReadPDF}" IsEnabled="{Binding CanExecute}" VerticalAlignment="Center" Content="{DynamicResource Search}" Width="100"/>
+	</Grid>
+</UserControl>

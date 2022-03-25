@@ -1,12 +1,13 @@
 ﻿using InDepthSearch.Core.Services;
 using InDepthSearch.Core.Services.Interfaces;
-using InDepthSearch.Core.Types;
+using InDepthSearch.Core.Enums;
 using Xunit;
 
 namespace InDepthSearch.Tests.Services
 {
     public class OptionServiceTest
     {
+        /*
         private readonly IOptionService _optionService;
 
         public OptionServiceTest()
@@ -19,6 +20,7 @@ namespace InDepthSearch.Tests.Services
         {
             Assert.Equal("eng", _optionService.TranslateLanguage(RecognitionLanguage.Default));
         }
+        */
     }
 }
 

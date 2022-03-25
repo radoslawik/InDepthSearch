@@ -37,6 +37,7 @@
 	<system:String x:Key="PrecisionTT">Wybierz precyzję silnika OCR. Lepsza precyzja może pogorszyć czas szukania.</system:String>
 	<system:String x:Key="KeywordEmptyTT">Słowo kluczowe nie może być puste!</system:String>
 	<system:String x:Key="PathErrorTT">Wybrany folder nie istnieje!</system:String>
+	<system:String x:Key="FormatsErrorTT">Wybierz co najmniej jeden format!</system:String>
 
 	<!-- Watermarks strings -->
 	<system:String x:Key="KeywordW">Słowo albo wyrażenie do wyszukania</system:String>

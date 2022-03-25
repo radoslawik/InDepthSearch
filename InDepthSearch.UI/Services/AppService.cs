@@ -1,35 +1,29 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using InDepthSearch.Core.Services.Interfaces;
-using InDepthSearch.Core.Types;
+using InDepthSearch.Core.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Avalonia.Controls.ApplicationLifetimes;
 
-namespace InDepthSearch.Core.Services
+namespace InDepthSearch.UI.Services
 {
     public class AppService : IAppService
     {
         private readonly List<ResourceInclude> _languages;
-        private int currentLanguage;
-        private SearchStatus status;
-        private SearchInfo info;
+        private int currentLanguage = 0;
+        private SearchStatus status = SearchStatus.Ready;
+        private SearchInfo info = SearchInfo.Init;
 
-        public AppService(AppLanguage lang)
+        public AppService()
         {
+            var basePath = "avares://InDepthSearch.UI/Assets/Resources/";
             _languages = new List<ResourceInclude>()
             {
-                new ResourceInclude() { Source = new Uri("avares://InDepthSearch.UI/Assets/Resources/StringsENG.xaml") },
-                new ResourceInclude() { Source = new Uri("avares://InDepthSearch.UI/Assets/Resources/StringsPOL.xaml") },
-                new ResourceInclude() { Source = new Uri("avares://InDepthSearch.UI/Assets/Resources/StringsFRA.xaml") },
+                new() { Source = new Uri($"{basePath}StringsENG.xaml") },
+                new() { Source = new Uri($"{basePath}StringsPOL.xaml") },
+                new() { Source = new Uri($"{basePath}StringsFRA.xaml") },
             };
-   
-            currentLanguage = (int)lang;
-            status = SearchStatus.Ready;
-            info = SearchInfo.Init;
-            
         }
 
         public string GetVersion()
@@ -37,7 +31,6 @@ namespace InDepthSearch.Core.Services
             var assemblyVer = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             return assemblyVer != null ? assemblyVer.Major.ToString() + "." + assemblyVer.Minor.ToString() + "."
                 + assemblyVer.Build.ToString() : "x.x.x";
-              
         }
 
         public void ChangeLanguage()
@@ -59,9 +52,9 @@ namespace InDepthSearch.Core.Services
 
             return ss switch
             {
-                SearchStatus.Ready => (string?)Avalonia.Application.Current.FindResource("StatusReady") ?? ss.ToString().ToUpper(),
-                SearchStatus.Initializing => (string?)Avalonia.Application.Current.FindResource("StatusInitializing") ?? ss.ToString().ToUpper(),
-                SearchStatus.Running => (string?)Avalonia.Application.Current.FindResource("StatusRunning") ?? ss.ToString().ToUpper(),
+                SearchStatus.Ready => GetResourceString("StatusReady") ?? ss.ToString().ToUpper(),
+                SearchStatus.Initializing => GetResourceString("StatusInitializing") ?? ss.ToString().ToUpper(),
+                SearchStatus.Running => GetResourceString("StatusRunning") ?? ss.ToString().ToUpper(),
                 _ => ss.ToString().ToUpper()
             };
         }
@@ -73,16 +66,21 @@ namespace InDepthSearch.Core.Services
 
             return si switch
             {
-                SearchInfo.Init => (string?)Avalonia.Application.Current.FindResource("InfoInit") ?? si.ToString(),
-                SearchInfo.Run => (string?)Avalonia.Application.Current.FindResource("InfoRun") ?? si.ToString(),
-                SearchInfo.NoResults => (string?)Avalonia.Application.Current.FindResource("InfoNoResults") ?? si.ToString(),
+                SearchInfo.Init => GetResourceString("InfoInit") ?? si.ToString(),
+                SearchInfo.Run => GetResourceString("InfoRun") ?? si.ToString(),
+                SearchInfo.NoResults => GetResourceString("InfoNoResults") ?? si.ToString(),
                 _ => si.ToString()
             };
         }
 
         public string GetSecondsString()
         {
-            return (string?)Avalonia.Application.Current.FindResource("TimeSeconds") ?? "seconds";
+            return GetResourceString("TimeSeconds") ?? "seconds";
+        }
+
+        private string? GetResourceString(string key)
+        {
+            return (string?)Avalonia.Application.Current.FindResource(key);
         }
 
     }

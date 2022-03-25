@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InDepthSearch.Core.Types;
+using InDepthSearch.Core.Enums;
 
 namespace InDepthSearch.Core.Models
 {

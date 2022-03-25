@@ -1,4 +1,4 @@
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using InDepthSearch.Core.ViewModels;
 using System;
@@ -7,11 +7,9 @@ namespace InDepthSearch.UI
 {
     public class ViewLocator : IDataTemplate
     {
-        public bool SupportsRecycling => false;
-
         public IControl Build(object data)
         {
-            var name = data.GetType().FullName!.Replace("ViewModel", "View");
+            var name = data.GetType().FullName!.Replace("ViewModel", "View").Replace(".Core.", ".UI.");
             var type = Type.GetType(name);
 
             if (type != null)
@@ -26,7 +24,7 @@ namespace InDepthSearch.UI
 
         public bool Match(object data)
         {
-            return data is MainViewModel;
+            return data is ViewModelBase;
         }
     }
 }
