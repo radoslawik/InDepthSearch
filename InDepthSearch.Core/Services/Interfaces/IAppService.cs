@@ -1,4 +1,4 @@
-﻿using InDepthSearch.Core.Types;
+﻿using InDepthSearch.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

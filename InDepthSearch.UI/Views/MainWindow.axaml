@@ -3,228 +3,76 @@
         xmlns:vm="using:InDepthSearch.Core.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:conv="clr-namespace:InDepthSearch.UI.Converters"
         mc:Ignorable="d" Width="1220" Height="780" MinWidth="1000" MinHeight="600"
         x:Class="InDepthSearch.UI.Views.MainWindow"
 		x:Name="Main"
         Icon="/Assets/Images/ids-icon.ico"
-		Title="InDepthSearch">
-		
-	<Design.DataContext>
-		<vm:MainViewModel/>
-	</Design.DataContext>
-
-	<Window.Resources>
-		<conv:BitmapAssetValueConverter x:Key="imConverter"/>
-	</Window.Resources>
+		Title="InDepthSearch"
+		Design.DataContext="{Binding Path=MainWindow, Source={StaticResource vmLocator}}">
 
 	<Border BorderBrush="Black" BorderThickness="0.5">
-	<Grid Margin="0 20 0 0">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*"/>
-			<RowDefinition Height="25"/>
-		</Grid.RowDefinitions>
-	<Grid Grid.Row="0" Margin="5 0" >
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*"/>
-			<ColumnDefinition Width="5*"/>
-		</Grid.ColumnDefinitions>
-
-		<Border Grid.Column="0" Grid.Row="0" Margin="10" MaxWidth="400" MaxHeight="750" CornerRadius="5" BorderBrush="Black" BorderThickness="0" 
-				BoxShadow="{DynamicResource BoxShadowSuper}" Padding="5">
-			<Border.Background>
-				<LinearGradientBrush >
-					<GradientStop Color="{DynamicResource CyanThemeColor}" Offset="0" />
-					<GradientStop Color="{DynamicResource BlueThemeColor}" Offset="0.5" />
-					<GradientStop Color="{DynamicResource VioletThemeColor}" Offset="1" />
-				</LinearGradientBrush>
-			</Border.Background>
-			<Grid Margin="5 0 5 5" MaxWidth="350">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="5*"/>
-					<RowDefinition Height="1.3*"/>
-					<RowDefinition Height="1.3*"/>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="2.5*"/>
-					<RowDefinition Height="1.5*"/>
-					<RowDefinition Height="1.2*"/>
-				</Grid.RowDefinitions>
-				<Image Grid.Row="0" Source="{Binding Logo, Converter={StaticResource imConverter}}" />
-				<Grid Grid.Row="1" VerticalAlignment="Center">
-						<DrawingPresenter MaxWidth="16" MaxHeight="16" IsVisible="{Binding KeywordErrorVisible}" ZIndex="99"
-										  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="{DynamicResource KeywordEmptyTT}">
-							<DrawingPresenter.Drawing>
-								<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}" />
-							</DrawingPresenter.Drawing>
-						</DrawingPresenter>
-						<TextBox Text="{Binding Options.Keyword}" Watermark="{DynamicResource KeywordW}"
-								 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
-					</Grid>		
-				<Grid Grid.Row="2" VerticalAlignment="Center">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="5*"/>
-							<ColumnDefinition Width="*"/>
-						</Grid.ColumnDefinitions>
-
-						<Grid Grid.Column="0" Margin="0 0 10 0">							
-							<DrawingPresenter MaxWidth="16" MaxHeight="16"  IsVisible="{Binding PathErrorVisible}" ZIndex="99"
-											  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" ToolTip.Tip="{DynamicResource PathErrorTT}">
+		<Grid Margin="0 20 0 0" RowDefinitions="*,25">
+			<Grid Margin="5 0" ColumnDefinitions="2*,5*">
+				<Border Grid.Column="0" Grid.Row="0" Margin="10" MaxWidth="400" MaxHeight="750" CornerRadius="5" BorderBrush="Black" BorderThickness="0" 
+						BoxShadow="{DynamicResource BoxShadowSuper}" Padding="5">
+					<Border.Background>
+						<LinearGradientBrush >
+							<GradientStop Color="{DynamicResource CyanThemeColor}" Offset="0" />
+							<GradientStop Color="{DynamicResource BlueThemeColor}" Offset="0.5" />
+							<GradientStop Color="{DynamicResource VioletThemeColor}" Offset="1" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<ContentControl Content="{Binding OptionsMenu}" Margin="5 0 5 5" MaxWidth="350"/>
+				</Border>
+				<ContentControl Content="{Binding ResultsPage}" Grid.Column="1" Grid.Row="0" Margin="15"/>
+			</Grid>
+			<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
+					<TextBlock Classes="Caption" Text="{DynamicResource StatusString}" FontWeight="DemiBold" Margin="10 0 4 0"/>
+					<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold"/>
+					<TextBlock Classes="Caption" Text="{DynamicResource FilesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding ResultManager.Stats.FilesAnalyzed.Length}"/>
+					<TextBlock Classes="Caption" Text="{Binding ResultManager.Stats.FilesAnalyzed}" IsVisible="{Binding ResultManager.Stats.FilesAnalyzed.Length}"/>
+					<TextBlock Classes="Caption" Text="{DynamicResource PagesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding ResultManager.Stats.FilesAnalyzed.Length}"/>
+					<TextBlock Classes="Caption" Text="{Binding ResultManager.Stats.PagesAnalyzed}" IsVisible="{Binding ResultManager.Stats.FilesAnalyzed.Length}"/>
+					<TextBlock Classes="Caption" Text="{DynamicResource ResultsFound}" Margin="10 0 4 0" IsVisible="{Binding ResultManager.Stats.FilesAnalyzed.Length}"/>
+					<TextBlock Classes="Caption" Text="{Binding ResultManager.Results.Count}" IsVisible="{Binding ResultManager.Stats.FilesAnalyzed.Length}"/>
+					<TextBlock Classes="Caption" Text="{DynamicResource ExecutionTime}" Margin="10 0 4 0" IsVisible="{Binding ResultManager.Stats.ExecutionTime.Length}" />
+					<TextBlock Classes="Caption" Text="{Binding ResultManager.Stats.ExecutionTime}" IsVisible="{Binding ResultManager.Stats.ExecutionTime.Length}" />
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4 0 4 6"
+							Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">				
+					<Button Command="{Binding ChangeTheme}" Padding="4 0 4 2" VerticalContentAlignment="Center">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<TextBlock Classes="ButtonCaption" Text="{Binding CurrentThemeName}" Margin="2 0"/>
+							<DrawingPresenter Width="10" Height="10" Margin="2 0">
 								<DrawingPresenter.Drawing>
-									<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}"/>
+									<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource ThemeIcon}"/>
 								</DrawingPresenter.Drawing>
 							</DrawingPresenter>
-							<TextBox Text="{Binding Options.Path}" Watermark="{DynamicResource PathW}"
-									 VerticalAlignment="Center" AcceptsReturn="False" TextWrapping="WrapWithOverflow" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
-						</Grid>
-						<Grid Name="DirectoryButton" Grid.Column="1">
-							<Button Command="{Binding GetDirectory}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-									VerticalAlignment="Center" Width="{Binding #DirectoryButton.Bounds.Width}">								
-								<DrawingPresenter Width="20" Height="20" Margin="0 4">
-									<DrawingPresenter.Drawing>
-										<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource DirectoryIcon}"/>
-									</DrawingPresenter.Drawing>
-								</DrawingPresenter>
-							</Button>
-						</Grid>						
-					</Grid>
-				<StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center"
-							ToolTip.Tip="{DynamicResource FormatsTT}" Background="Transparent">
-					<Grid>
-						<TextBlock Text="{DynamicResource Formats}" FontSize="12" />
-						<DrawingPresenter Margin="10 0" MaxWidth="16" MaxHeight="16"  IsVisible="{Binding FormatsErrorVisible}" ZIndex="99"
-											  VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip.Tip="{DynamicResource FormatsErrorTT}">
-							<DrawingPresenter.Drawing>
-								<GeometryDrawing Brush="{DynamicResource ThemeIconForegroundBrush}" Geometry="{StaticResource InvalidCheckIcon}"/>
-							</DrawingPresenter.Drawing>
-						</DrawingPresenter>
-					</Grid>
-					<UniformGrid Columns="4">
-						<CheckBox Grid.Column="0" Content="pdf" IsChecked="{Binding Options.UsePDF, Mode=TwoWay}"/>
-						<CheckBox Grid.Column="1" Content="docx" IsChecked="{Binding Options.UseDOCX}"/>
-						<CheckBox Grid.Column="2" Content="doc" IsChecked="{Binding Options.UseDOC}"/>
-						<CheckBox Grid.Column="3" Content="odt" IsChecked="{Binding Options.UseODT}" IsEnabled="False"/>
-					</UniformGrid>
+						</StackPanel>
+					</Button>
+					<Button Command="{Binding ChangeLanguage}" Padding="4 0 4 2" >
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<TextBlock Classes="ButtonCaption" Text="{Binding CurrentLanguageName}" Margin="2 0"/>
+							<DrawingPresenter Width="10" Height="10" Margin="2 0" >
+								<DrawingPresenter.Drawing>
+									<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource LanguageIcon}"/>
+								</DrawingPresenter.Drawing>
+							</DrawingPresenter>
+						</StackPanel>
+					</Button>
+					<Button Command="{Binding OpenUrl}" Padding="4 0 4 2" VerticalContentAlignment="Center">
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+							<TextBlock Classes="ButtonCaption" Text="{Binding AppVersion}" Margin="2 0"/>
+							<DrawingPresenter Width="10" Height="10" Margin="2 0">
+								<DrawingPresenter.Drawing>
+									<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource VersionIcon}"/>
+								</DrawingPresenter.Drawing>
+							</DrawingPresenter>
+						</StackPanel>
+					</Button>
 				</StackPanel>
-				
-				<StackPanel Grid.Row="4" Orientation="Vertical" VerticalAlignment="Center">
-					<ToggleSwitch ToolTip.Tip="{DynamicResource CaseSensitiveTT}" OnContent="{DynamicResource CaseSensitive}" OffContent="{DynamicResource CaseSensitive}"
-								  IsChecked="{Binding Options.CaseSensitive}" />
-					<ToggleSwitch ToolTip.Tip="{DynamicResource SubfoldersTT}" OnContent="{DynamicResource Subfolders}" OffContent="{DynamicResource Subfolders}"
-								  IsChecked="{Binding Options.UseSubfolders}" />
-					<ToggleSwitch ToolTip.Tip="{DynamicResource OcrTT}" OnContent="{DynamicResource OCR}" OffContent="{DynamicResource OCR}"
-								  IsChecked="{Binding Options.UseOCR}" />
-				</StackPanel>				
-				<UniformGrid Grid.Row="5" Columns="2" VerticalAlignment="Center">
-						<StackPanel Name="LanguageGrid" Grid.Column="0" Margin="2 0" ToolTip.Tip="{DynamicResource LanguageTT}">
-							<TextBlock Text="{DynamicResource RecognitionLanguage}" FontSize="12"/>
-							<ComboBox Items="{Binding LanguageOCR}" SelectedItem="{Binding Options.SelectedLanguageOCR}"
-									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #LanguageGrid.Bounds.Width}"/>
-						</StackPanel>
-						<StackPanel Grid.Column="1" Name="PrecisionGrid" Margin="2 0" ToolTip.Tip="{DynamicResource PrecisionTT}">
-							<TextBlock Text="{DynamicResource RecognitionPrecision}" FontSize="12"/>
-							<ComboBox Items="{Binding PrecisionOCR}" SelectedItem="{Binding Options.SelectedPrecisionOCR}"
-									  HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding #PrecisionGrid.Bounds.Width}"/>
-						</StackPanel>
-					</UniformGrid>
-				<Button Grid.Row="6" Command="{Binding ReadPDF}" IsEnabled="{Binding CanExecute}" VerticalAlignment="Center" Content="{DynamicResource Search}" Width="100"/>
-			</Grid>		
-		</Border>
-			<Grid Grid.Column="1" Grid.Row="0" Margin="15">
-				<TextBlock Classes="Heading" Text="{Binding ResultInfo}" IsVisible="{Binding !ItemsReady}"/>
-				<ListBox Name="ResultView" Items="{Binding Results}" IsVisible="{Binding ItemsReady}">
-					<ListBox.Template>
-						<ControlTemplate>
-							<DockPanel LastChildFill="True">
-								<Grid DockPanel.Dock="Top" Height="30">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="2*"/>
-										<ColumnDefinition Width="*"/>
-										<ColumnDefinition Width="7*"/>
-									</Grid.ColumnDefinitions>
-									<Label Classes="ResultHeading" Grid.Column="0" Content="{DynamicResource File}"/>
-									<Label Classes="ResultHeading" Grid.Column="1" Content="{DynamicResource Page}"/>
-									<Label Classes="ResultHeading" Grid.Column="2" Margin="5 0" Content="{DynamicResource Results}"/>
-								</Grid>
-								<ScrollViewer>
-									<ItemsPresenter></ItemsPresenter>
-								</ScrollViewer>
-
-							</DockPanel>
-						</ControlTemplate>
-					</ListBox.Template>
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<Border Background="Transparent" ToolTip.Tip="{Binding FilePath}">
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="2*"/>
-										<ColumnDefinition Width="*"/>
-										<ColumnDefinition Width="7*"/>
-									</Grid.ColumnDefinitions>
-									
-									<TextBlock Grid.Column="0" Text="{Binding FileName}" HorizontalAlignment="Center" TextWrapping="WrapWithOverflow" MaxLines="1"/>
-									<TextBlock Grid.Column="1" Text="{Binding PageNumber}" HorizontalAlignment="Center" />
-									<DockPanel Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0">
-										<TextBlock Classes="Result" Text="{Binding TextBefore}" />
-										<TextBlock Classes="Result" Text="{Binding TextFound}" FontWeight="Bold"/>
-										<TextBlock Classes="Result" Text="{Binding TextAfter}" TextWrapping="WrapWithOverflow" />
-									</DockPanel>
-									</Grid>
-							</Border>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
-				</Grid>
-			
-	</Grid>
-		<Grid Name="InfoGrid" Grid.Row="1" Margin="1 0 0 0">
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Height="{Binding #InfoGrid.Bounds.Height}">
-				<TextBlock Classes="Caption" Text="{DynamicResource StatusString}" FontWeight="DemiBold" Margin="10 0 4 0"/>
-				<TextBlock Classes="Caption" Text="{Binding StatusName}" FontWeight="DemiBold"/>
-				<TextBlock Classes="Caption" Text="{DynamicResource FilesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
-				<TextBlock Classes="Caption" Text="{Binding Stats.FilesAnalyzed}" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
-				<TextBlock Classes="Caption" Text="{DynamicResource PagesAnalyzed}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
-				<TextBlock Classes="Caption" Text="{Binding Stats.PagesAnalyzed}" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
-				<TextBlock Classes="Caption" Text="{DynamicResource ResultsFound}" Margin="10 0 4 0" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
-				<TextBlock Classes="Caption" Text="{Binding Results.Count}" IsVisible="{Binding Stats.FilesAnalyzed.Length}"/>
-				<TextBlock Classes="Caption" Text="{DynamicResource ExecutionTime}" Margin="10 0 4 0" IsVisible="{Binding Stats.ExecutionTime.Length}" />
-				<TextBlock Classes="Caption" Text="{Binding Stats.ExecutionTime}" IsVisible="{Binding Stats.ExecutionTime.Length}" />
-			</StackPanel>
-			<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4 0 4 6"
-						Height="{Binding #InfoGrid.Bounds.Height}" HorizontalAlignment="Right">				
-				<Button Command="{Binding ChangeTheme}" Padding="4 0 4 2" VerticalContentAlignment="Center">
-					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-						<TextBlock Classes="ButtonCaption" Text="{Binding CurrentThemeName}" Margin="2 0"/>
-						<DrawingPresenter Width="10" Height="10" Margin="2 0">
-							<DrawingPresenter.Drawing>
-								<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource ThemeIcon}"/>
-							</DrawingPresenter.Drawing>
-						</DrawingPresenter>
-					</StackPanel>
-				</Button>
-				<Button Command="{Binding ChangeLanguage}" Padding="4 0 4 2" >
-					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-						<TextBlock Classes="ButtonCaption" Text="{Binding CurrentLanguageName}" Margin="2 0"/>
-						<DrawingPresenter Width="10" Height="10" Margin="2 0" >
-							<DrawingPresenter.Drawing>
-								<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource LanguageIcon}"/>
-							</DrawingPresenter.Drawing>
-						</DrawingPresenter>
-					</StackPanel>
-				</Button>
-				<Button Command="{Binding OpenUrl}" Padding="4 0 4 2" VerticalContentAlignment="Center">
-					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-						<TextBlock Classes="ButtonCaption" Text="{Binding AppVersion}" Margin="2 0"/>
-						<DrawingPresenter Width="10" Height="10" Margin="2 0">
-							<DrawingPresenter.Drawing>
-								<GeometryDrawing Brush="{DynamicResource ThemeForegroundBrush}" Geometry="{StaticResource VersionIcon}"/>
-							</DrawingPresenter.Drawing>
-						</DrawingPresenter>
-					</StackPanel>
-				</Button>
-			</StackPanel>
+			</Grid>
 		</Grid>
-	</Grid>
 	</Border>
-  
 </FluentWindow>

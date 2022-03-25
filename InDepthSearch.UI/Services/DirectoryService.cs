@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InDepthSearch.Core.Services
+namespace InDepthSearch.UI.Services
 {
     public class DirectoryService : IDirectoryService
     {

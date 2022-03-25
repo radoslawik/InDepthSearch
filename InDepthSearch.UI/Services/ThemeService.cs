@@ -2,14 +2,10 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml.Styling;
 using InDepthSearch.Core.Services.Interfaces;
-using InDepthSearch.Core.Types;
+using InDepthSearch.Core.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InDepthSearch.Core.Services
+namespace InDepthSearch.UI.Services
 {
     public class ThemeService : IThemeService
     {
@@ -18,11 +14,10 @@ namespace InDepthSearch.Core.Services
         private Theme currentTheme = Theme.Light;
         private Window? _window = null;
 
-        public ThemeService(Theme theme)
+        public ThemeService()
         {
             _lightTheme = CreateStyle("avares://InDepthSearch.UI/Themes/Light.xaml");
             _darkTheme = CreateStyle("avares://InDepthSearch.UI/Themes/Dark.xaml");
-            currentTheme = theme;
         }
 
         private void InitDynamicThemes(Theme theme)

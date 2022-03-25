@@ -10,11 +10,11 @@ namespace InDepthSearch.Core.Models
 {
     public class ResultStats : ReactiveObject
     {
-        public ResultStats(string filesAnalyzed, int pagesAnalyzed, string executionTime)
+        public ResultStats()
         {
-            FilesAnalyzed = filesAnalyzed;
-            PagesAnalyzed = pagesAnalyzed;
-            ExecutionTime = executionTime;
+            FilesAnalyzed = "";
+            PagesAnalyzed = 0;
+            ExecutionTime = "";
         }
 
         [Reactive]
