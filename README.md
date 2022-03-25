@@ -1,5 +1,5 @@
 # InDepthSearch
-![version](https://img.shields.io/badge/version-0.2.0-blue)
+![version](https://img.shields.io/badge/version-1.0.0-blue)
 
 Search for keywords inside the documents on Windows, Linux and macOS!
 
@@ -13,7 +13,7 @@ InDepthSearch is a multi-platform desktop search engine to find the keywords ins
  - Linux (x64)
  - macOS (x64)
 
-**NOTE:** Currently the project is in pre-release state, some functionalities are not implemented yet and some of them work only on a specific platform. For more information see the section below.
+**NOTE:** Some functionalities are not implemented yet and some of them work only on a specific platform. For more information see the section below.
 
 ## ✔️ Features
 The table below lists the features and their compatibility with the supported platforms:
@@ -28,7 +28,7 @@ The table below lists the features and their compatibility with the supported pl
 | Case-sensitive search | + | + | + |
 | Search in images<sup>***</sup> | + | - | - |
 
-<sup>*</sup>  Currently the user is allowed to search only for one word/phrase. Support for multiple search entries is provisioned for next pre-release.
+<sup>*</sup>  Currently the user is allowed to search only for one word/phrase. Support for multiple search entries is provisioned for next release.
 
 <sup>**</sup>  ODT format is not available yet.
 
